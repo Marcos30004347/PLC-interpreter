@@ -1,0 +1,425 @@
+
+state 0:
+
+	prog : . exp 
+	prog : . decl 
+
+	ID	shift 10
+	NUM	shift 9
+	TRUE	shift 8
+	FALSE	shift 7
+	LPARENT	shift 6
+	VAR	shift 5
+
+	prog	goto 24
+	exp	goto 4
+	atomic_expr	goto 3
+	const_exp	goto 2
+	decl	goto 1
+
+	.	error
+
+
+state 1:
+
+	prog : decl .  (reduce by rule 1)
+
+	EOF	reduce by rule 1
+
+
+	.	error
+
+
+state 2:
+
+	atomic_expr : const_exp .  (reduce by rule 8)
+
+	PLUS	reduce by rule 8
+	DIV	reduce by rule 8
+	SUB	reduce by rule 8
+	TIMES	reduce by rule 8
+	EQUAL	reduce by rule 8
+	EOF	reduce by rule 8
+	RPARENT	reduce by rule 8
+
+
+	.	error
+
+
+state 3:
+
+	exp : atomic_expr .  (reduce by rule 3)
+
+	PLUS	reduce by rule 3
+	DIV	reduce by rule 3
+	SUB	reduce by rule 3
+	TIMES	reduce by rule 3
+	EQUAL	reduce by rule 3
+	EOF	reduce by rule 3
+	RPARENT	reduce by rule 3
+
+
+	.	error
+
+
+state 4:
+
+	prog : exp .  (reduce by rule 0)
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . DIV exp 
+	exp : exp . TIMES exp 
+
+	PLUS	shift 14
+	DIV	shift 13
+	SUB	shift 12
+	TIMES	shift 11
+	EOF	reduce by rule 0
+
+
+	.	error
+
+
+state 5:
+
+	decl : VAR . exp EQUAL exp 
+
+	ID	shift 10
+	NUM	shift 9
+	TRUE	shift 8
+	FALSE	shift 7
+	LPARENT	shift 6
+
+	exp	goto 15
+	atomic_expr	goto 3
+	const_exp	goto 2
+
+	.	error
+
+
+state 6:
+
+	atomic_expr : LPARENT . exp RPARENT 
+
+	ID	shift 10
+	NUM	shift 9
+	TRUE	shift 8
+	FALSE	shift 7
+	LPARENT	shift 6
+
+	exp	goto 16
+	atomic_expr	goto 3
+	const_exp	goto 2
+
+	.	error
+
+
+state 7:
+
+	const_exp : FALSE .  (reduce by rule 12)
+
+	PLUS	reduce by rule 12
+	DIV	reduce by rule 12
+	SUB	reduce by rule 12
+	TIMES	reduce by rule 12
+	EQUAL	reduce by rule 12
+	EOF	reduce by rule 12
+	RPARENT	reduce by rule 12
+
+
+	.	error
+
+
+state 8:
+
+	const_exp : TRUE .  (reduce by rule 11)
+
+	PLUS	reduce by rule 11
+	DIV	reduce by rule 11
+	SUB	reduce by rule 11
+	TIMES	reduce by rule 11
+	EQUAL	reduce by rule 11
+	EOF	reduce by rule 11
+	RPARENT	reduce by rule 11
+
+
+	.	error
+
+
+state 9:
+
+	const_exp : NUM .  (reduce by rule 10)
+
+	PLUS	reduce by rule 10
+	DIV	reduce by rule 10
+	SUB	reduce by rule 10
+	TIMES	reduce by rule 10
+	EQUAL	reduce by rule 10
+	EOF	reduce by rule 10
+	RPARENT	reduce by rule 10
+
+
+	.	error
+
+
+state 10:
+
+	const_exp : ID .  (reduce by rule 13)
+
+	PLUS	reduce by rule 13
+	DIV	reduce by rule 13
+	SUB	reduce by rule 13
+	TIMES	reduce by rule 13
+	EQUAL	reduce by rule 13
+	EOF	reduce by rule 13
+	RPARENT	reduce by rule 13
+
+
+	.	error
+
+
+state 11:
+
+	exp : exp TIMES . exp 
+
+	ID	shift 10
+	NUM	shift 9
+	TRUE	shift 8
+	FALSE	shift 7
+	LPARENT	shift 6
+
+	exp	goto 17
+	atomic_expr	goto 3
+	const_exp	goto 2
+
+	.	error
+
+
+state 12:
+
+	exp : exp SUB . exp 
+
+	ID	shift 10
+	NUM	shift 9
+	TRUE	shift 8
+	FALSE	shift 7
+	LPARENT	shift 6
+
+	exp	goto 18
+	atomic_expr	goto 3
+	const_exp	goto 2
+
+	.	error
+
+
+state 13:
+
+	exp : exp DIV . exp 
+
+	ID	shift 10
+	NUM	shift 9
+	TRUE	shift 8
+	FALSE	shift 7
+	LPARENT	shift 6
+
+	exp	goto 19
+	atomic_expr	goto 3
+	const_exp	goto 2
+
+	.	error
+
+
+state 14:
+
+	exp : exp PLUS . exp 
+
+	ID	shift 10
+	NUM	shift 9
+	TRUE	shift 8
+	FALSE	shift 7
+	LPARENT	shift 6
+
+	exp	goto 20
+	atomic_expr	goto 3
+	const_exp	goto 2
+
+	.	error
+
+
+state 15:
+
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . DIV exp 
+	exp : exp . TIMES exp 
+	decl : VAR exp . EQUAL exp 
+
+	PLUS	shift 14
+	DIV	shift 13
+	SUB	shift 12
+	TIMES	shift 11
+	EQUAL	shift 21
+
+
+	.	error
+
+
+state 16:
+
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . DIV exp 
+	exp : exp . TIMES exp 
+	atomic_expr : LPARENT exp . RPARENT 
+
+	PLUS	shift 14
+	DIV	shift 13
+	SUB	shift 12
+	TIMES	shift 11
+	RPARENT	shift 22
+
+
+	.	error
+
+
+state 17:
+
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . DIV exp 
+	exp : exp . TIMES exp 
+	exp : exp TIMES exp .  (reduce by rule 7)
+
+	PLUS	reduce by rule 7
+	DIV	reduce by rule 7
+	SUB	reduce by rule 7
+	TIMES	reduce by rule 7
+	EQUAL	reduce by rule 7
+	EOF	reduce by rule 7
+	RPARENT	reduce by rule 7
+
+
+	.	error
+
+
+state 18:
+
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp SUB exp .  (reduce by rule 5)
+	exp : exp . DIV exp 
+	exp : exp . TIMES exp 
+
+	PLUS	reduce by rule 5
+	DIV	shift 13
+	SUB	reduce by rule 5
+	TIMES	shift 11
+	EQUAL	reduce by rule 5
+	EOF	reduce by rule 5
+	RPARENT	reduce by rule 5
+
+
+	.	error
+
+
+state 19:
+
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . DIV exp 
+	exp : exp DIV exp .  (reduce by rule 6)
+	exp : exp . TIMES exp 
+
+	PLUS	reduce by rule 6
+	DIV	reduce by rule 6
+	SUB	reduce by rule 6
+	TIMES	reduce by rule 6
+	EQUAL	reduce by rule 6
+	EOF	reduce by rule 6
+	RPARENT	reduce by rule 6
+
+
+	.	error
+
+
+state 20:
+
+	exp : exp . PLUS exp 
+	exp : exp PLUS exp .  (reduce by rule 4)
+	exp : exp . SUB exp 
+	exp : exp . DIV exp 
+	exp : exp . TIMES exp 
+
+	PLUS	reduce by rule 4
+	DIV	shift 13
+	SUB	reduce by rule 4
+	TIMES	shift 11
+	EQUAL	reduce by rule 4
+	EOF	reduce by rule 4
+	RPARENT	reduce by rule 4
+
+
+	.	error
+
+
+state 21:
+
+	decl : VAR exp EQUAL . exp 
+
+	ID	shift 10
+	NUM	shift 9
+	TRUE	shift 8
+	FALSE	shift 7
+	LPARENT	shift 6
+
+	exp	goto 23
+	atomic_expr	goto 3
+	const_exp	goto 2
+
+	.	error
+
+
+state 22:
+
+	atomic_expr : LPARENT exp RPARENT .  (reduce by rule 9)
+
+	PLUS	reduce by rule 9
+	DIV	reduce by rule 9
+	SUB	reduce by rule 9
+	TIMES	reduce by rule 9
+	EQUAL	reduce by rule 9
+	EOF	reduce by rule 9
+	RPARENT	reduce by rule 9
+
+
+	.	error
+
+
+state 23:
+
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . DIV exp 
+	exp : exp . TIMES exp 
+	decl : VAR exp EQUAL exp .  (reduce by rule 2)
+
+	PLUS	shift 14
+	DIV	shift 13
+	SUB	shift 12
+	TIMES	shift 11
+	EOF	reduce by rule 2
+
+
+	.	error
+
+
+state 24:
+
+
+	EOF	accept
+
+
+	.	error
+
+110 of 165 action table entries left after compaction
+26 goto table entries
