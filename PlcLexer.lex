@@ -46,6 +46,8 @@ ws = [\ \t];
 {ws}+     => (lex());
 \n        => (pos := (!pos) + 1; lex());
 
+"->"      => (Tokens.SARROW(yypos, yypos + size yytext));
+"=>"      => (Tokens.DARROW(yypos, yypos + size yytext));
 "end"     => (Tokens.END(yypos, yypos + size yytext));
 "var"     => (Tokens.VAR(yypos, yypos + size yytext));
 "fun"     => (Tokens.FUN(yypos, yypos + size yytext));

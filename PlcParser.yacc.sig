@@ -3,6 +3,8 @@ sig
 type ('a,'b) token
 type svalue
 val LESS:  'a * 'a -> (svalue,'a) token
+val DARROW:  'a * 'a -> (svalue,'a) token
+val SARROW:  'a * 'a -> (svalue,'a) token
 val GREATER:  'a * 'a -> (svalue,'a) token
 val END:  'a * 'a -> (svalue,'a) token
 val COMMA:  'a * 'a -> (svalue,'a) token

@@ -1,9 +1,9 @@
-datatype declaration = Variable of string * expr
-                  | Function of string * expr
+datatype declaration = Variable       of string * expr
+                  | Function          of string * expr
                   | RecursiveFunction of string * (plcType * string) list * plcType * expr
 
 fun resolve (decl, prog) =
-    case decl of  Variable v => Let (#1v, #2v, prog)
+    case decl of  Variable v           => Let (#1v, #2v, prog)
                 | Function f           => Let (#1f, #2f, prog)
                 | RecursiveFunction fr => makeFun (#1fr, #2fr, #3fr, #4fr, prog)
 
@@ -49,10 +49,13 @@ fun resolve (decl, prog) =
 		| COMMA
     | END
     | GREATER
+    | SARROW
+    | DARROW
     | LESS
   
 %left PLUS SUB
 %left TIMES DIV
+%right SEMI SARROW
 
 %nonterm prog 					of expr
         | exp 					of expr
@@ -99,7 +102,7 @@ const_exp 	: NUM       															            (ConI(NUM))
           
 atomic_expr : const_exp           										            (const_exp)
             | LPARENT exp RPARENT 										            (exp)
-            | FN args EQUAL GREATER exp END                              (makeAnon(args, exp))
+            | FN args DARROW exp END                              (makeAnon(args, exp))
 
 atomic_type	:	NIL  																		            (ListT([]))
 						| INT																			            (IntT)
@@ -116,6 +119,7 @@ types       : type COMMA type                                     ([type1, type2
             | type COMMA types                                    ([type1] @ type2)
 
 type        : LPARENT types RPARENT                               (ListT(types))
+            | type SARROW type                                    (FunT(type1, type2))
             | LSQBRA type RSQBRA                                  (SeqT(type))
             | atomic_type                                         (atomic_type)
 

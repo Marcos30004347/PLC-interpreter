@@ -12,7 +12,7 @@ state 0:
 	VAR	shift 7
 	FN	shift 6
 
-	prog	goto 68
+	prog	goto 69
 	exp	goto 5
 	atomic_expr	goto 4
 	const_exp	goto 3
@@ -96,7 +96,7 @@ state 5:
 
 state 6:
 
-	atomic_expr : FN . args EQUAL GREATER exp END 
+	atomic_expr : FN . args DARROW exp END 
 
 	LPARENT	shift 20
 
@@ -309,9 +309,9 @@ state 18:
 
 state 19:
 
-	atomic_expr : FN args . EQUAL GREATER exp END 
+	atomic_expr : FN args . DARROW exp END 
 
-	EQUAL	shift 30
+	DARROW	shift 30
 
 
 	.	error
@@ -482,10 +482,18 @@ state 29:
 
 state 30:
 
-	atomic_expr : FN args EQUAL . GREATER exp END 
+	atomic_expr : FN args DARROW . exp END 
 
-	GREATER	shift 45
+	ID	shift 13
+	NUM	shift 12
+	TRUE	shift 11
+	FALSE	shift 10
+	LPARENT	shift 9
+	FN	shift 6
 
+	exp	goto 45
+	atomic_expr	goto 4
+	const_exp	goto 3
 
 	.	error
 
@@ -503,8 +511,10 @@ state 31:
 state 32:
 
 	typed_var : type . ID 
+	type : type . SARROW type 
 
-	ID	shift 47
+	ID	shift 48
+	SARROW	shift 47
 
 
 	.	error
@@ -516,7 +526,7 @@ state 33:
 	params : typed_var . COMMA params 
 
 	RPARENT	reduce by rule 23
-	COMMA	shift 48
+	COMMA	shift 49
 
 
 	.	error
@@ -524,13 +534,14 @@ state 33:
 
 state 34:
 
-	type : atomic_type .  (reduce by rule 29)
+	type : atomic_type .  (reduce by rule 30)
 
-	ID	reduce by rule 29
-	EQUAL	reduce by rule 29
-	RSQBRA	reduce by rule 29
-	RPARENT	reduce by rule 29
-	COMMA	reduce by rule 29
+	ID	reduce by rule 30
+	EQUAL	reduce by rule 30
+	RSQBRA	reduce by rule 30
+	RPARENT	reduce by rule 30
+	COMMA	reduce by rule 30
+	SARROW	reduce by rule 30
 
 
 	.	error
@@ -545,6 +556,7 @@ state 35:
 	RSQBRA	reduce by rule 18
 	RPARENT	reduce by rule 18
 	COMMA	reduce by rule 18
+	SARROW	reduce by rule 18
 
 
 	.	error
@@ -559,6 +571,7 @@ state 36:
 	RSQBRA	reduce by rule 19
 	RPARENT	reduce by rule 19
 	COMMA	reduce by rule 19
+	SARROW	reduce by rule 19
 
 
 	.	error
@@ -573,6 +586,7 @@ state 37:
 	RSQBRA	reduce by rule 20
 	RPARENT	reduce by rule 20
 	COMMA	reduce by rule 20
+	SARROW	reduce by rule 20
 
 
 	.	error
@@ -584,6 +598,7 @@ state 38:
 
 	EQUAL	reduce by rule 21
 	TWO_POINTS	reduce by rule 21
+	DARROW	reduce by rule 21
 
 
 	.	error
@@ -600,8 +615,8 @@ state 39:
 	NIL	shift 35
 
 	atomic_type	goto 34
-	types	goto 50
-	type	goto 49
+	types	goto 51
+	type	goto 50
 
 	.	error
 
@@ -617,7 +632,7 @@ state 40:
 	NIL	shift 35
 
 	atomic_type	goto 34
-	type	goto 51
+	type	goto 52
 
 	.	error
 
@@ -633,7 +648,7 @@ state 41:
 	LPARENT	shift 9
 	FN	shift 6
 
-	exp	goto 52
+	exp	goto 53
 	atomic_expr	goto 4
 	const_exp	goto 3
 
@@ -646,7 +661,7 @@ state 42:
 
 	LPARENT	shift 20
 
-	args	goto 53
+	args	goto 54
 
 	.	error
 
@@ -655,7 +670,7 @@ state 43:
 
 	decl : FUN ID args . EQUAL exp 
 
-	EQUAL	shift 54
+	EQUAL	shift 55
 
 
 	.	error
@@ -680,18 +695,18 @@ state 44:
 
 state 45:
 
-	atomic_expr : FN args EQUAL GREATER . exp END 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . DIV exp 
+	exp : exp . TIMES exp 
+	atomic_expr : FN args DARROW exp . END 
 
-	ID	shift 13
-	NUM	shift 12
-	TRUE	shift 11
-	FALSE	shift 10
-	LPARENT	shift 9
-	FN	shift 6
+	PLUS	shift 18
+	DIV	shift 17
+	SUB	shift 16
+	TIMES	shift 15
+	END	shift 56
 
-	exp	goto 55
-	atomic_expr	goto 4
-	const_exp	goto 3
 
 	.	error
 
@@ -702,6 +717,7 @@ state 46:
 
 	EQUAL	reduce by rule 22
 	TWO_POINTS	reduce by rule 22
+	DARROW	reduce by rule 22
 
 
 	.	error
@@ -709,16 +725,32 @@ state 46:
 
 state 47:
 
-	typed_var : type ID .  (reduce by rule 30)
+	type : type SARROW . type 
 
-	RPARENT	reduce by rule 30
-	COMMA	reduce by rule 30
+	LSQBRA	shift 40
+	LPARENT	shift 39
+	BOOL	shift 37
+	INT	shift 36
+	NIL	shift 35
 
+	atomic_type	goto 34
+	type	goto 57
 
 	.	error
 
 
 state 48:
+
+	typed_var : type ID .  (reduce by rule 31)
+
+	RPARENT	reduce by rule 31
+	COMMA	reduce by rule 31
+
+
+	.	error
+
+
+state 49:
 
 	params : typed_var COMMA . params 
 
@@ -731,27 +763,19 @@ state 48:
 	atomic_type	goto 34
 	typed_var	goto 33
 	type	goto 32
-	params	goto 56
-
-	.	error
-
-
-state 49:
-
-	types : type . COMMA type 
-	types : type . COMMA types 
-
-	COMMA	shift 57
-
+	params	goto 58
 
 	.	error
 
 
 state 50:
 
-	type : LPARENT types . RPARENT 
+	types : type . COMMA type 
+	types : type . COMMA types 
+	type : type . SARROW type 
 
-	RPARENT	shift 58
+	COMMA	shift 59
+	SARROW	shift 47
 
 
 	.	error
@@ -759,15 +783,27 @@ state 50:
 
 state 51:
 
-	type : LSQBRA type . RSQBRA 
+	type : LPARENT types . RPARENT 
 
-	RSQBRA	shift 59
+	RPARENT	shift 60
 
 
 	.	error
 
 
 state 52:
+
+	type : type . SARROW type 
+	type : LSQBRA type . RSQBRA 
+
+	RSQBRA	shift 61
+	SARROW	shift 47
+
+
+	.	error
+
+
+state 53:
 
 	exp : exp . PLUS exp 
 	exp : exp . SUB exp 
@@ -785,17 +821,17 @@ state 52:
 	.	error
 
 
-state 53:
+state 54:
 
 	decl : FUN REC ID args . TWO_POINTS type EQUAL exp 
 
-	TWO_POINTS	shift 60
+	TWO_POINTS	shift 62
 
 
 	.	error
 
 
-state 54:
+state 55:
 
 	decl : FUN ID args EQUAL . exp 
 
@@ -806,32 +842,47 @@ state 54:
 	LPARENT	shift 9
 	FN	shift 6
 
-	exp	goto 61
+	exp	goto 63
 	atomic_expr	goto 4
 	const_exp	goto 3
 
 	.	error
 
 
-state 55:
+state 56:
 
-	exp : exp . PLUS exp 
-	exp : exp . SUB exp 
-	exp : exp . DIV exp 
-	exp : exp . TIMES exp 
-	atomic_expr : FN args EQUAL GREATER exp . END 
+	atomic_expr : FN args DARROW exp END .  (reduce by rule 17)
 
-	PLUS	shift 18
-	DIV	shift 17
-	SUB	shift 16
-	TIMES	shift 15
-	END	shift 62
+	PLUS	reduce by rule 17
+	DIV	reduce by rule 17
+	SUB	reduce by rule 17
+	TIMES	reduce by rule 17
+	SEMI	reduce by rule 17
+	EOF	reduce by rule 17
+	RPARENT	reduce by rule 17
+	END	reduce by rule 17
 
 
 	.	error
 
 
-state 56:
+state 57:
+
+	type : type . SARROW type 
+	type : type SARROW type .  (reduce by rule 28)
+
+	ID	reduce by rule 28
+	EQUAL	reduce by rule 28
+	RSQBRA	reduce by rule 28
+	RPARENT	reduce by rule 28
+	COMMA	reduce by rule 28
+	SARROW	shift 47
+
+
+	.	error
+
+
+state 58:
 
 	params : typed_var COMMA params .  (reduce by rule 24)
 
@@ -841,7 +892,7 @@ state 56:
 	.	error
 
 
-state 57:
+state 59:
 
 	types : type COMMA . type 
 	types : type COMMA . types 
@@ -853,13 +904,13 @@ state 57:
 	NIL	shift 35
 
 	atomic_type	goto 34
-	types	goto 64
-	type	goto 63
+	types	goto 65
+	type	goto 64
 
 	.	error
 
 
-state 58:
+state 60:
 
 	type : LPARENT types RPARENT .  (reduce by rule 27)
 
@@ -868,26 +919,28 @@ state 58:
 	RSQBRA	reduce by rule 27
 	RPARENT	reduce by rule 27
 	COMMA	reduce by rule 27
+	SARROW	reduce by rule 27
 
 
 	.	error
 
 
-state 59:
+state 61:
 
-	type : LSQBRA type RSQBRA .  (reduce by rule 28)
+	type : LSQBRA type RSQBRA .  (reduce by rule 29)
 
-	ID	reduce by rule 28
-	EQUAL	reduce by rule 28
-	RSQBRA	reduce by rule 28
-	RPARENT	reduce by rule 28
-	COMMA	reduce by rule 28
+	ID	reduce by rule 29
+	EQUAL	reduce by rule 29
+	RSQBRA	reduce by rule 29
+	RPARENT	reduce by rule 29
+	COMMA	reduce by rule 29
+	SARROW	reduce by rule 29
 
 
 	.	error
 
 
-state 60:
+state 62:
 
 	decl : FUN REC ID args TWO_POINTS . type EQUAL exp 
 
@@ -898,12 +951,12 @@ state 60:
 	NIL	shift 35
 
 	atomic_type	goto 34
-	type	goto 65
+	type	goto 66
 
 	.	error
 
 
-state 61:
+state 63:
 
 	exp : exp . PLUS exp 
 	exp : exp . SUB exp 
@@ -921,37 +974,22 @@ state 61:
 	.	error
 
 
-state 62:
-
-	atomic_expr : FN args EQUAL GREATER exp END .  (reduce by rule 17)
-
-	PLUS	reduce by rule 17
-	DIV	reduce by rule 17
-	SUB	reduce by rule 17
-	TIMES	reduce by rule 17
-	SEMI	reduce by rule 17
-	EOF	reduce by rule 17
-	RPARENT	reduce by rule 17
-	END	reduce by rule 17
-
-
-	.	error
-
-
-state 63:
+state 64:
 
 	types : type . COMMA type 
 	types : type COMMA type .  (reduce by rule 25)
 	types : type . COMMA types 
+	type : type . SARROW type 
 
 	RPARENT	reduce by rule 25
-	COMMA	shift 57
+	COMMA	shift 59
+	SARROW	shift 47
 
 
 	.	error
 
 
-state 64:
+state 65:
 
 	types : type COMMA types .  (reduce by rule 26)
 
@@ -961,17 +999,19 @@ state 64:
 	.	error
 
 
-state 65:
+state 66:
 
 	decl : FUN REC ID args TWO_POINTS type . EQUAL exp 
+	type : type . SARROW type 
 
-	EQUAL	shift 66
+	EQUAL	shift 67
+	SARROW	shift 47
 
 
 	.	error
 
 
-state 66:
+state 67:
 
 	decl : FUN REC ID args TWO_POINTS type EQUAL . exp 
 
@@ -982,14 +1022,14 @@ state 66:
 	LPARENT	shift 9
 	FN	shift 6
 
-	exp	goto 67
+	exp	goto 68
 	atomic_expr	goto 4
 	const_exp	goto 3
 
 	.	error
 
 
-state 67:
+state 68:
 
 	exp : exp . PLUS exp 
 	exp : exp . SUB exp 
@@ -1007,7 +1047,7 @@ state 67:
 	.	error
 
 
-state 68:
+state 69:
 
 
 	EOF	accept
@@ -1015,5 +1055,5 @@ state 68:
 
 	.	error
 
-213 of 360 action table entries left after compaction
-59 goto table entries
+231 of 384 action table entries left after compaction
+61 goto table entries
