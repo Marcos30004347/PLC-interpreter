@@ -46,26 +46,6 @@ ws = [\ \t];
 {ws}+     => (lex());
 \n        => (pos := (!pos) + 1; lex());
 
-
-"("       => (Tokens.LPARENT(!pos,!pos));
-")"       => (Tokens.RPARENT(!pos,!pos));
-"["       => (Tokens.LSQBRA(!pos,!pos));
-"]"       => (Tokens.RSQBRA(!pos,!pos));
-";"       => (Tokens.SEMI(!pos,!pos));
-","       => (Tokens.COMMA(!pos,!pos));
-
-"+"       => (Tokens.PLUS(!pos,!pos));
-"*"       => (Tokens.TIMES(!pos,!pos));
-"-"       => (Tokens.SUB(!pos,!pos));
-"/"       => (Tokens.DIV(!pos,!pos));
-"="       => (Tokens.EQUAL(!pos,!pos));
-":"       => (Tokens.TWO_POINTS(!pos,!pos));
-
-"true"    => (lexLog(yypos, yytext); Tokens.TRUE(yypos, yypos+size yytext));
-"false"   => (lexLog(yypos, yytext); Tokens.FALSE(yypos, yypos + size yytext));
-
-"=>"      => (Tokens.DARROW(yypos, yypos + size yytext));
-"->"      => (Tokens.ARROW(yypos, yypos + size yytext));
 "end"     => (Tokens.END(yypos, yypos + size yytext));
 "var"     => (Tokens.VAR(yypos, yypos + size yytext));
 "fun"     => (Tokens.FUN(yypos, yypos + size yytext));
@@ -84,6 +64,26 @@ ws = [\ \t];
 "tl"      => (Tokens.TL(yypos, yypos + size yytext));
 "with"    => (Tokens.WITCH(yypos, yypos + size yytext));
 "_"       => (Tokens.UNDERSCORE(yypos, yypos + size yytext));
+
+"("       => (Tokens.LPARENT(!pos,!pos));
+")"       => (Tokens.RPARENT(!pos,!pos));
+"["       => (Tokens.LSQBRA(!pos,!pos));
+"]"       => (Tokens.RSQBRA(!pos,!pos));
+";"       => (Tokens.SEMI(!pos,!pos));
+","       => (Tokens.COMMA(!pos,!pos));
+
+"+"       => (Tokens.PLUS(!pos,!pos));
+"*"       => (Tokens.TIMES(!pos,!pos));
+"-"       => (Tokens.SUB(!pos,!pos));
+"/"       => (Tokens.DIV(!pos,!pos));
+"="       => (Tokens.EQUAL(!pos,!pos));
+">"       => (Tokens.GREATER(!pos,!pos));
+"<"       => (Tokens.LESS(!pos,!pos));
+":"       => (Tokens.TWO_POINTS(!pos,!pos));
+
+"true"    => (lexLog(yypos, yytext); Tokens.TRUE(yypos, yypos+size yytext));
+"false"   => (lexLog(yypos, yytext); Tokens.FALSE(yypos, yypos + size yytext));
+
 
 {digit}+  => (Tokens.NUM(revfold (fn (a,r) => ord(a)-ord(#"0")+10*r) (explode yytext) 0, !pos,!pos));
 {alpha}+   => (Tokens.ID(yytext, yypos, yypos + size yytext));

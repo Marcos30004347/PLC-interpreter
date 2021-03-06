@@ -2,10 +2,10 @@ signature PlcParser_TOKENS =
 sig
 type ('a,'b) token
 type svalue
+val LESS:  'a * 'a -> (svalue,'a) token
+val GREATER:  'a * 'a -> (svalue,'a) token
 val END:  'a * 'a -> (svalue,'a) token
 val COMMA:  'a * 'a -> (svalue,'a) token
-val DARROW:  'a * 'a -> (svalue,'a) token
-val ARROW:  'a * 'a -> (svalue,'a) token
 val TWO_POINTS:  'a * 'a -> (svalue,'a) token
 val UNDERSCORE:  'a * 'a -> (svalue,'a) token
 val WITCH:  'a * 'a -> (svalue,'a) token
