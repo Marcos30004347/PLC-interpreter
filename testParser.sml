@@ -20,7 +20,7 @@ open PlcFrontEnd;
 
 fromString "15";
 fromString "true";
-fromString "var x = 3";
+fromString "fun x(Int x) = x;";
 
 (*
 fromString "()";

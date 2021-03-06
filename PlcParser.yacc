@@ -13,7 +13,7 @@
     | EQUAL 
     | TRUE 
     | FALSE 
-    | SEMICOLON 
+    | SEMI 
     | EOF 
 		| LSQBRA
 		| RSQBRA
@@ -40,7 +40,7 @@
 		| ARROW
 		| DARROW
 		| COMMA
-
+    | END
 %left PLUS SUB
 %left TIMES DIV
 
@@ -50,6 +50,8 @@
 				| const_exp 		of expr
 				| decl 					of expr
 				| statement			of expr
+        | args          of expr 
+        | atomic_type   of plcType
 
 %prefer PLUS TIMES DIV SUB
 
@@ -63,10 +65,14 @@
 
 prog 				: statement(statement)
 
-statement 	: exp (exp)	
-						| decl(decl)
+statement 	: exp											 								(exp) 
+						| decl	                   	              (decl)
 
-decl 				: VAR ID EQUAL exp SEMICOLON statement 				(Let(ID, exp, statement))
+decl 				: VAR ID EQUAL exp SEMI decl				                  (Let(ID, exp, decl))
+     				| FUN ID LPARENT type ID RPARENT EQUAL exp SEMI decl	(Let(ID1, Anon(type, ID2, exp), decl))
+     				| FUN ID LPARENT RPARENT EQUAL exp SEMI decl				  (Let(ID1, Anon(ListT([]), "Nil", exp), decl))
+
+args        : LPARENT RPARENT                         (List([]))
 
 exp 				: atomic_expr    													(atomic_expr)
 						| exp PLUS exp   													(Prim2("+", exp1, exp2))
@@ -74,30 +80,17 @@ exp 				: atomic_expr    													(atomic_expr)
 						| exp DIV exp    													(Prim2("/", exp1, exp2))
 						| exp TIMES exp  													(Prim2("*", exp1, exp2))
 
-args 				: LPARENT RPARENT
-						| LPARENT params RPARENT	
-
-params			: typed_var																()(*??????*)
-						| typed_var COMMA params									()(*??????*)
-
-typed_var		: type ID 																() (*??????*)
-
-type				: atomic_type
-						| LPARENT types RPARENT										(types)
-						| LSQBRA type RSQBRA											(SeqT(type))
-						| type ARROW type													(FunT(type1, type2))
-
-types				: type COMMA type													(type1::type2) (*Probably wrong*)
-						| type COMMA types												(type::types) (*Probably wrong*)
-
-atomic_type	:	NIL  																		(ListT()) (*Probably wrong*)
-						| INT																			(IntT())
-						| BOOL																		(BoolT())
-
-atomic_expr : const_exp           										(const_exp)
-            | LPARENT exp RPARENT 										(exp)
-
 const_exp 	: NUM       															(ConI(NUM))
           	| TRUE      															(ConB(true))
           	| FALSE     															(ConB(false))
 					 	| ID       																(Var(ID))
+
+
+atomic_expr : const_exp           										(const_exp)
+            | LPARENT exp RPARENT 										(exp)
+
+
+
+atomic_type	:	NIL  																		(ListT([]))
+						| INT																			(IntT)
+						| BOOL																		(BoolT)

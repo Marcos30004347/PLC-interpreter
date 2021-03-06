@@ -13,3 +13,6 @@ exception CallTypeMisM
 exception NotFunc
 exception ListOutOfRange
 exception OpNonList
+
+
+fun teval (exp: expr) = IntT

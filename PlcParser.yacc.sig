@@ -2,6 +2,11 @@ signature PlcParser_TOKENS =
 sig
 type ('a,'b) token
 type svalue
+val END:  'a * 'a -> (svalue,'a) token
+val COMMA:  'a * 'a -> (svalue,'a) token
+val DARROW:  'a * 'a -> (svalue,'a) token
+val ARROW:  'a * 'a -> (svalue,'a) token
+val TWO_POINTS:  'a * 'a -> (svalue,'a) token
 val UNDERSCORE:  'a * 'a -> (svalue,'a) token
 val WITCH:  'a * 'a -> (svalue,'a) token
 val TL:  'a * 'a -> (svalue,'a) token
@@ -21,8 +26,10 @@ val VAR:  'a * 'a -> (svalue,'a) token
 val FUN:  'a * 'a -> (svalue,'a) token
 val RPARENT:  'a * 'a -> (svalue,'a) token
 val LPARENT:  'a * 'a -> (svalue,'a) token
+val RSQBRA:  'a * 'a -> (svalue,'a) token
+val LSQBRA:  'a * 'a -> (svalue,'a) token
 val EOF:  'a * 'a -> (svalue,'a) token
-val SEMICOLON:  'a * 'a -> (svalue,'a) token
+val SEMI:  'a * 'a -> (svalue,'a) token
 val FALSE:  'a * 'a -> (svalue,'a) token
 val TRUE:  'a * 'a -> (svalue,'a) token
 val EQUAL:  'a * 'a -> (svalue,'a) token
