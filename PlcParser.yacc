@@ -63,7 +63,6 @@ fun resolve (decl, prog) =
         | exp 					of expr
         | atomic_expr 	of expr
 				| const_exp 		of expr
-				| statement			of expr
 				| decl 					of declaration
         | atomic_type   of plcType
         | typed_var     of plcType * string
@@ -82,17 +81,15 @@ fun resolve (decl, prog) =
 
 %%
 
-prog 				: statement                                           (statement)
-
-statement 	: exp											 								            (exp) 
-						| decl SEMI	statement                  	              (resolve (decl, statement))
+prog 				: exp											 								            (exp) 
+						| decl SEMI	prog                  	                  (resolve (decl, prog))
 
 decl        : VAR ID EQUAL exp                                    (Variable(ID, exp))
             | FUN ID args EQUAL exp                               (Function(ID, makeAnon(args, exp)))
             | FUN REC ID args TWO_POINTS plctype EQUAL exp        (RecursiveFunction(ID, args, plctype, exp))
 
-exp 				: atomic_expr    													            (atomic_expr)
-						| exp PLUS exp   													            (Prim2("+", exp1, exp2))
+exp 				: atomic_expr                                         (atomic_expr)
+						| exp PLUS exp                                        (Prim2("+", exp1, exp2))
 						| exp SUB exp    													            (Prim2("-", exp1, exp2))
 						| exp TIMES exp  													            (Prim2("*", exp1, exp2))
 						| exp DIV exp    													            (Prim2("/", exp1, exp2))

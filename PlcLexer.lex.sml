@@ -687,7 +687,7 @@ let fun continue() = lex() in
 
 			(* Application actions *)
 
-  10 => let val yytext=yymktext() in Tokens.DARROW(yypos, yypos + size yytext) end
+  10 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.DARROW(yypos, yypos + size yytext) end
 | 100 => (Tokens.TIMES(!pos,!pos))
 | 102 => (Tokens.SUB(!pos,!pos))
 | 104 => (Tokens.DIV(!pos,!pos))
@@ -697,29 +697,29 @@ let fun continue() = lex() in
 | 112 => (Tokens.TWO_POINTS(!pos,!pos))
 | 117 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.TRUE(yypos, yypos+size yytext) end
 | 123 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.FALSE(yypos, yypos + size yytext) end
-| 126 => let val yytext=yymktext() in Tokens.NUM(revfold (fn (a,r) => ord(a)-ord(#"0")+10*r) (explode yytext) 0, !pos,!pos) end
-| 129 => let val yytext=yymktext() in Tokens.ID(yytext, yypos, yypos + size yytext) end
-| 14 => let val yytext=yymktext() in Tokens.END(yypos, yypos + size yytext) end
-| 18 => let val yytext=yymktext() in Tokens.VAR(yypos, yypos + size yytext) end
+| 126 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.NUM(revfold (fn (a,r) => ord(a)-ord(#"0")+10*r) (explode yytext) 0, !pos,!pos) end
+| 129 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.ID(yytext, yypos, yypos + size yytext) end
+| 14 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.END(yypos, yypos + size yytext) end
+| 18 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.VAR(yypos, yypos + size yytext) end
 | 2 => (lex())
-| 22 => let val yytext=yymktext() in Tokens.FUN(yypos, yypos + size yytext) end
-| 25 => let val yytext=yymktext() in Tokens.FN(yypos, yypos + size yytext) end
-| 30 => let val yytext=yymktext() in Tokens.BOOL(yypos, yypos + size yytext) end
-| 34 => let val yytext=yymktext() in Tokens.INT(yypos, yypos + size yytext) end
-| 38 => let val yytext=yymktext() in Tokens.NIL(yypos, yypos + size yytext) end
+| 22 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.FUN(yypos, yypos + size yytext) end
+| 25 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.FN(yypos, yypos + size yytext) end
+| 30 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.BOOL(yypos, yypos + size yytext) end
+| 34 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.INT(yypos, yypos + size yytext) end
+| 38 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.NIL(yypos, yypos + size yytext) end
 | 4 => (pos := (!pos) + 1; lex())
-| 43 => let val yytext=yymktext() in Tokens.ELSE(yypos, yypos + size yytext) end
-| 46 => let val yytext=yymktext() in Tokens.IF(yypos, yypos + size yytext) end
-| 49 => let val yytext=yymktext() in Tokens.HD(yypos, yypos + size yytext) end
-| 53 => let val yytext=yymktext() in Tokens.ISE(yypos, yypos + size yytext) end
-| 59 => let val yytext=yymktext() in Tokens.MATCH(yypos, yypos + size yytext) end
-| 65 => let val yytext=yymktext() in Tokens.PRINT(yypos, yypos + size yytext) end
-| 69 => let val yytext=yymktext() in Tokens.REC(yypos, yypos + size yytext) end
-| 7 => let val yytext=yymktext() in Tokens.SARROW(yypos, yypos + size yytext) end
-| 74 => let val yytext=yymktext() in Tokens.THEN(yypos, yypos + size yytext) end
-| 77 => let val yytext=yymktext() in Tokens.TL(yypos, yypos + size yytext) end
-| 82 => let val yytext=yymktext() in Tokens.WITCH(yypos, yypos + size yytext) end
-| 84 => let val yytext=yymktext() in Tokens.UNDERSCORE(yypos, yypos + size yytext) end
+| 43 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.ELSE(yypos, yypos + size yytext) end
+| 46 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.IF(yypos, yypos + size yytext) end
+| 49 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.HD(yypos, yypos + size yytext) end
+| 53 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.ISE(yypos, yypos + size yytext) end
+| 59 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.MATCH(yypos, yypos + size yytext) end
+| 65 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.PRINT(yypos, yypos + size yytext) end
+| 69 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.REC(yypos, yypos + size yytext) end
+| 7 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.SARROW(yypos, yypos + size yytext) end
+| 74 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.THEN(yypos, yypos + size yytext) end
+| 77 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.TL(yypos, yypos + size yytext) end
+| 82 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.WITCH(yypos, yypos + size yytext) end
+| 84 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.UNDERSCORE(yypos, yypos + size yytext) end
 | 86 => (Tokens.LPARENT(!pos,!pos))
 | 88 => (Tokens.RPARENT(!pos,!pos))
 | 90 => (Tokens.LSQBRA(!pos,!pos))
