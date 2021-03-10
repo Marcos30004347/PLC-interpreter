@@ -18,6 +18,8 @@ fun resolve (decl, prog) =
                 | RecursiveFunction fr => makeFun (#1fr, #2fr, #3fr, #4fr, prog)
 
 
+
+
 end
 structure LrTable = Token.LrTable
 structure Token = Token
@@ -33,9 +35,9 @@ val table=let val actionRows =
 \\001\000\001\000\099\000\007\000\099\000\013\000\099\000\015\000\099\000\
 \\034\000\099\000\037\000\099\000\000\000\
 \\001\000\001\000\100\000\007\000\100\000\013\000\100\000\015\000\100\000\
-\\034\000\100\000\037\000\049\000\000\000\
+\\034\000\100\000\037\000\100\000\000\000\
 \\001\000\001\000\101\000\007\000\101\000\013\000\101\000\015\000\101\000\
-\\034\000\101\000\037\000\101\000\000\000\
+\\034\000\101\000\037\000\049\000\000\000\
 \\001\000\001\000\102\000\007\000\102\000\013\000\102\000\015\000\102\000\
 \\034\000\102\000\037\000\102\000\000\000\
 \\001\000\001\000\015\000\002\000\014\000\008\000\013\000\009\000\012\000\
@@ -99,33 +101,33 @@ val table=let val actionRows =
 \\001\000\014\000\022\000\000\000\
 \\001\000\015\000\095\000\034\000\051\000\000\000\
 \\001\000\015\000\096\000\000\000\
-\\001\000\015\000\097\000\034\000\061\000\037\000\049\000\000\000\
+\\001\000\015\000\097\000\034\000\062\000\037\000\049\000\000\000\
 \\001\000\015\000\098\000\000\000\
 \\001\000\015\000\103\000\034\000\103\000\000\000\
 \\001\000\015\000\048\000\000\000\
-\\001\000\015\000\062\000\000\000\
+\\001\000\015\000\061\000\000\000\
 \\001\000\033\000\064\000\000\000\
-\\001\000\034\000\061\000\037\000\049\000\000\000\
+\\001\000\034\000\062\000\037\000\049\000\000\000\
 \\001\000\038\000\032\000\000\000\
 \"
 val actionRowNumbers =
-"\007\000\038\000\036\000\022\000\
+"\007\000\036\000\038\000\022\000\
 \\013\000\028\000\043\000\009\000\
 \\010\000\008\000\020\000\019\000\
 \\018\000\021\000\007\000\008\000\
 \\008\000\008\000\008\000\053\000\
 \\040\000\033\000\011\000\043\000\
-\\029\000\039\000\017\000\015\000\
-\\016\000\014\000\008\000\049\000\
-\\012\000\044\000\006\000\000\000\
+\\029\000\039\000\016\000\015\000\
+\\017\000\014\000\008\000\049\000\
+\\012\000\044\000\003\000\000\000\
 \\001\000\002\000\031\000\041\000\
 \\041\000\008\000\043\000\034\000\
 \\023\000\030\000\032\000\041\000\
-\\048\000\041\000\052\000\050\000\
+\\048\000\041\000\050\000\052\000\
 \\042\000\025\000\051\000\008\000\
-\\024\000\004\000\045\000\041\000\
-\\003\000\005\000\041\000\026\000\
-\\046\000\047\000\035\000\008\000\
+\\024\000\005\000\045\000\004\000\
+\\041\000\006\000\041\000\026\000\
+\\047\000\046\000\035\000\008\000\
 \\027\000\037\000"
 val gotoT =
 "\
@@ -144,14 +146,14 @@ val gotoT =
 \\000\000\
 \\000\000\
 \\000\000\
-\\002\000\005\000\003\000\004\000\004\000\003\000\005\000\002\000\
-\\006\000\025\000\000\000\
+\\002\000\005\000\003\000\004\000\004\000\003\000\005\000\025\000\
+\\006\000\001\000\000\000\
 \\002\000\026\000\003\000\004\000\004\000\003\000\000\000\
 \\002\000\027\000\003\000\004\000\004\000\003\000\000\000\
 \\002\000\028\000\003\000\004\000\004\000\003\000\000\000\
 \\002\000\029\000\003\000\004\000\004\000\003\000\000\000\
 \\000\000\
-\\007\000\034\000\008\000\033\000\010\000\032\000\012\000\031\000\000\000\
+\\007\000\034\000\008\000\033\000\009\000\032\000\012\000\031\000\000\000\
 \\000\000\
 \\000\000\
 \\011\000\043\000\000\000\
@@ -171,16 +173,16 @@ val gotoT =
 \\000\000\
 \\000\000\
 \\007\000\034\000\009\000\051\000\010\000\050\000\000\000\
-\\007\000\034\000\010\000\052\000\000\000\
+\\007\000\034\000\009\000\052\000\000\000\
 \\002\000\053\000\003\000\004\000\004\000\003\000\000\000\
 \\011\000\054\000\000\000\
 \\000\000\
 \\000\000\
 \\000\000\
 \\000\000\
-\\007\000\034\000\010\000\057\000\000\000\
+\\007\000\034\000\009\000\057\000\000\000\
 \\000\000\
-\\007\000\034\000\008\000\033\000\010\000\032\000\012\000\058\000\000\000\
+\\007\000\034\000\008\000\033\000\009\000\032\000\012\000\058\000\000\000\
 \\000\000\
 \\000\000\
 \\000\000\
@@ -190,10 +192,10 @@ val gotoT =
 \\000\000\
 \\000\000\
 \\000\000\
+\\000\000\
 \\007\000\034\000\009\000\065\000\010\000\064\000\000\000\
 \\000\000\
-\\000\000\
-\\007\000\034\000\010\000\066\000\000\000\
+\\007\000\034\000\009\000\066\000\000\000\
 \\000\000\
 \\000\000\
 \\000\000\
@@ -267,14 +269,14 @@ structure MlyValue =
 struct
 datatype svalue = VOID | ntVOID of unit ->  unit
  | NUM of unit ->  (int) | ID of unit ->  (string)
- | params of unit ->  (plcType list)
- | args of unit ->  (typed_var list) | type of unit ->  (plcType)
- | types of unit ->  (plcType list)
+ | params of unit ->  ( ( plcType * string )  list)
+ | args of unit ->  ( ( plcType * string )  list)
+ | plctypes of unit ->  (plcType list) | plctype of unit ->  (plcType)
  | typed_var of unit ->  (plcType*string)
- | atomic_type of unit ->  (plcType)
- | statement of unit ->  (declaration) | decl of unit ->  (expr)
- | const_exp of unit ->  (expr) | atomic_expr of unit ->  (expr)
- | exp of unit ->  (expr) | prog of unit ->  (expr)
+ | atomic_type of unit ->  (plcType) | decl of unit ->  (declaration)
+ | statement of unit ->  (expr) | const_exp of unit ->  (expr)
+ | atomic_expr of unit ->  (expr) | exp of unit ->  (expr)
+ | prog of unit ->  (expr)
 end
 type svalue = MlyValue.svalue
 type result = expr
@@ -375,7 +377,7 @@ end
 exp1) = exp1 ()
  in (exp)
 end)
- in ( LrTable.NT 5, ( result, exp1left, exp1right), rest671)
+ in ( LrTable.NT 4, ( result, exp1left, exp1right), rest671)
 end
 |  ( 2, ( ( _, ( MlyValue.statement statement1, _, statement1right))
  :: _ :: ( _, ( MlyValue.decl decl1, decl1left, _)) :: rest671)) =>
@@ -384,7 +386,7 @@ end
  val  (statement as statement1) = statement1 ()
  in (resolve (decl, statement))
 end)
- in ( LrTable.NT 5, ( result, decl1left, statement1right), rest671)
+ in ( LrTable.NT 4, ( result, decl1left, statement1right), rest671)
 
 end
 |  ( 3, ( ( _, ( MlyValue.exp exp1, _, exp1right)) :: _ :: ( _, ( 
@@ -393,7 +395,7 @@ MlyValue.ID ID1, _, _)) :: ( _, ( _, VAR1left, _)) :: rest671)) => let
  val  (exp as exp1) = exp1 ()
  in (Variable(ID, exp))
 end)
- in ( LrTable.NT 4, ( result, VAR1left, exp1right), rest671)
+ in ( LrTable.NT 5, ( result, VAR1left, exp1right), rest671)
 end
 |  ( 4, ( ( _, ( MlyValue.exp exp1, _, exp1right)) :: _ :: ( _, ( 
 MlyValue.args args1, _, _)) :: ( _, ( MlyValue.ID ID1, _, _)) :: ( _, 
@@ -403,19 +405,19 @@ MlyValue.args args1, _, _)) :: ( _, ( MlyValue.ID ID1, _, _)) :: ( _,
  val  (exp as exp1) = exp1 ()
  in (Function(ID, makeAnon(args, exp)))
 end)
- in ( LrTable.NT 4, ( result, FUN1left, exp1right), rest671)
+ in ( LrTable.NT 5, ( result, FUN1left, exp1right), rest671)
 end
 |  ( 5, ( ( _, ( MlyValue.exp exp1, _, exp1right)) :: _ :: ( _, ( 
-MlyValue.type type1, _, _)) :: _ :: ( _, ( MlyValue.args args1, _, _))
- :: ( _, ( MlyValue.ID ID1, _, _)) :: _ :: ( _, ( _, FUN1left, _)) :: 
-rest671)) => let val  result = MlyValue.decl (fn _ => let val  (ID as 
-ID1) = ID1 ()
+MlyValue.plctype plctype1, _, _)) :: _ :: ( _, ( MlyValue.args args1,
+ _, _)) :: ( _, ( MlyValue.ID ID1, _, _)) :: _ :: ( _, ( _, FUN1left,
+ _)) :: rest671)) => let val  result = MlyValue.decl (fn _ => let val 
+ (ID as ID1) = ID1 ()
  val  (args as args1) = args1 ()
- val  (type as type1) = type1 ()
+ val  (plctype as plctype1) = plctype1 ()
  val  (exp as exp1) = exp1 ()
- in (RecursiveFunction(ID, args, type, exp))
+ in (RecursiveFunction(ID, args, plctype, exp))
 end)
- in ( LrTable.NT 4, ( result, FUN1left, exp1right), rest671)
+ in ( LrTable.NT 5, ( result, FUN1left, exp1right), rest671)
 end
 |  ( 6, ( ( _, ( MlyValue.atomic_expr atomic_expr1, atomic_expr1left, 
 atomic_expr1right)) :: rest671)) => let val  result = MlyValue.exp (fn
@@ -445,7 +447,7 @@ end
 MlyValue.exp exp1, exp1left, _)) :: rest671)) => let val  result = 
 MlyValue.exp (fn _ => let val  exp1 = exp1 ()
  val  exp2 = exp2 ()
- in (Prim2("/", exp1, exp2))
+ in (Prim2("*", exp1, exp2))
 end)
  in ( LrTable.NT 1, ( result, exp1left, exp2right), rest671)
 end
@@ -453,7 +455,7 @@ end
 MlyValue.exp exp1, exp1left, _)) :: rest671)) => let val  result = 
 MlyValue.exp (fn _ => let val  exp1 = exp1 ()
  val  exp2 = exp2 ()
- in (Prim2("*", exp1, exp2))
+ in (Prim2("/", exp1, exp2))
 end)
  in ( LrTable.NT 1, ( result, exp1left, exp2right), rest671)
 end
@@ -524,8 +526,9 @@ end
 end
 |  ( 22, ( ( _, ( _, _, RPARENT1right)) :: ( _, ( MlyValue.params 
 params1, _, _)) :: ( _, ( _, LPARENT1left, _)) :: rest671)) => let
- val  result = MlyValue.args (fn _ => let val  params1 = params1 ()
- in (Params)
+ val  result = MlyValue.args (fn _ => let val  (params as params1) = 
+params1 ()
+ in (params)
 end)
  in ( LrTable.NT 10, ( result, LPARENT1left, RPARENT1right), rest671)
 
@@ -548,61 +551,70 @@ end)
  in ( LrTable.NT 11, ( result, typed_var1left, params1right), rest671)
 
 end
-|  ( 25, ( ( _, ( MlyValue.type type2, _, type2right)) :: _ :: ( _, ( 
-MlyValue.type type1, type1left, _)) :: rest671)) => let val  result = 
-MlyValue.types (fn _ => let val  type1 = type1 ()
- val  type2 = type2 ()
- in ([type1, type2])
+|  ( 25, ( ( _, ( MlyValue.plctype plctype2, _, plctype2right)) :: _
+ :: ( _, ( MlyValue.plctype plctype1, plctype1left, _)) :: rest671))
+ => let val  result = MlyValue.plctypes (fn _ => let val  plctype1 = 
+plctype1 ()
+ val  plctype2 = plctype2 ()
+ in ([plctype1, plctype2])
 end)
- in ( LrTable.NT 8, ( result, type1left, type2right), rest671)
-end
-|  ( 26, ( ( _, ( MlyValue.types types1, _, types1right)) :: _ :: ( _,
- ( MlyValue.type type1, type1left, _)) :: rest671)) => let val  result
- = MlyValue.types (fn _ => let val  type1 = type1 ()
- val  types1 = types1 ()
- in ([type1] @ type2)
-end)
- in ( LrTable.NT 8, ( result, type1left, types1right), rest671)
-end
-|  ( 27, ( ( _, ( _, _, RPARENT1right)) :: ( _, ( MlyValue.types 
-types1, _, _)) :: ( _, ( _, LPARENT1left, _)) :: rest671)) => let val 
- result = MlyValue.type (fn _ => let val  (types as types1) = types1
- ()
- in (ListT(types))
-end)
- in ( LrTable.NT 9, ( result, LPARENT1left, RPARENT1right), rest671)
+ in ( LrTable.NT 9, ( result, plctype1left, plctype2right), rest671)
 
 end
-|  ( 28, ( ( _, ( MlyValue.type type2, _, type2right)) :: _ :: ( _, ( 
-MlyValue.type type1, type1left, _)) :: rest671)) => let val  result = 
-MlyValue.type (fn _ => let val  type1 = type1 ()
- val  type2 = type2 ()
- in (FunT(type1, type2))
+|  ( 26, ( ( _, ( MlyValue.plctypes plctypes1, _, plctypes1right)) ::
+ _ :: ( _, ( MlyValue.plctype plctype1, plctype1left, _)) :: rest671))
+ => let val  result = MlyValue.plctypes (fn _ => let val  plctype1 = 
+plctype1 ()
+ val  (plctypes as plctypes1) = plctypes1 ()
+ in ([plctype1] @ plctypes)
 end)
- in ( LrTable.NT 9, ( result, type1left, type2right), rest671)
+ in ( LrTable.NT 9, ( result, plctype1left, plctypes1right), rest671)
+
 end
-|  ( 29, ( ( _, ( _, _, RSQBRA1right)) :: ( _, ( MlyValue.type type1,
- _, _)) :: ( _, ( _, LSQBRA1left, _)) :: rest671)) => let val  result
- = MlyValue.type (fn _ => let val  (type as type1) = type1 ()
- in (SeqT(type))
-end)
- in ( LrTable.NT 9, ( result, LSQBRA1left, RSQBRA1right), rest671)
-end
-|  ( 30, ( ( _, ( MlyValue.atomic_type atomic_type1, atomic_type1left,
- atomic_type1right)) :: rest671)) => let val  result = MlyValue.type
- (fn _ => let val  (atomic_type as atomic_type1) = atomic_type1 ()
+|  ( 27, ( ( _, ( MlyValue.atomic_type atomic_type1, atomic_type1left,
+ atomic_type1right)) :: rest671)) => let val  result = 
+MlyValue.plctype (fn _ => let val  (atomic_type as atomic_type1) = 
+atomic_type1 ()
  in (atomic_type)
 end)
- in ( LrTable.NT 9, ( result, atomic_type1left, atomic_type1right), 
+ in ( LrTable.NT 8, ( result, atomic_type1left, atomic_type1right), 
 rest671)
 end
-|  ( 31, ( ( _, ( MlyValue.ID ID1, _, ID1right)) :: ( _, ( 
-MlyValue.type type1, type1left, _)) :: rest671)) => let val  result = 
-MlyValue.typed_var (fn _ => let val  (type as type1) = type1 ()
- val  (ID as ID1) = ID1 ()
- in ((type, ID))
+|  ( 28, ( ( _, ( _, _, RPARENT1right)) :: ( _, ( MlyValue.plctypes 
+plctypes1, _, _)) :: ( _, ( _, LPARENT1left, _)) :: rest671)) => let
+ val  result = MlyValue.plctype (fn _ => let val  (plctypes as 
+plctypes1) = plctypes1 ()
+ in (ListT(plctypes))
 end)
- in ( LrTable.NT 7, ( result, type1left, ID1right), rest671)
+ in ( LrTable.NT 8, ( result, LPARENT1left, RPARENT1right), rest671)
+
+end
+|  ( 29, ( ( _, ( MlyValue.plctype plctype2, _, plctype2right)) :: _
+ :: ( _, ( MlyValue.plctype plctype1, plctype1left, _)) :: rest671))
+ => let val  result = MlyValue.plctype (fn _ => let val  plctype1 = 
+plctype1 ()
+ val  plctype2 = plctype2 ()
+ in (FunT(plctype1, plctype2))
+end)
+ in ( LrTable.NT 8, ( result, plctype1left, plctype2right), rest671)
+
+end
+|  ( 30, ( ( _, ( _, _, RSQBRA1right)) :: ( _, ( MlyValue.plctype 
+plctype1, _, _)) :: ( _, ( _, LSQBRA1left, _)) :: rest671)) => let
+ val  result = MlyValue.plctype (fn _ => let val  (plctype as plctype1
+) = plctype1 ()
+ in (SeqT(plctype))
+end)
+ in ( LrTable.NT 8, ( result, LSQBRA1left, RSQBRA1right), rest671)
+end
+|  ( 31, ( ( _, ( MlyValue.ID ID1, _, ID1right)) :: ( _, ( 
+MlyValue.plctype plctype1, plctype1left, _)) :: rest671)) => let val  
+result = MlyValue.typed_var (fn _ => let val  (plctype as plctype1) = 
+plctype1 ()
+ val  (ID as ID1) = ID1 ()
+ in ((plctype, ID))
+end)
+ in ( LrTable.NT 7, ( result, plctype1left, ID1right), rest671)
 end
 | _ => raise (mlyAction i392)
 end
