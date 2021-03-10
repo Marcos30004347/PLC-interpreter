@@ -20,6 +20,7 @@ open PlcFrontEnd;
 
 fromString "15";
 fromString "true";
+fromString "fun f(Int x) = x; 3";
 
 (*
 fromString "()";
