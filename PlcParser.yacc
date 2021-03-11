@@ -70,6 +70,7 @@ fun resolve (decl, prog) =
         | plctypes      of plcType list
         | args          of (plcType * string) list
         | params        of (plcType * string) list
+        | comps         of expr list
     
 %prefer PLUS TIMES DIV SUB
 
@@ -93,17 +94,24 @@ exp 				: atomic_expr                                         (atomic_expr)
 						| exp SUB exp    													            (Prim2("-", exp1, exp2))
 						| exp TIMES exp  													            (Prim2("*", exp1, exp2))
 						| exp DIV exp    													            (Prim2("/", exp1, exp2))
+            | exp LSQBRA NUM RSQBRA                               (Item(NUM, exp))
           
 const_exp 	: NUM       															            (ConI(NUM))
           	| TRUE      															            (ConB(true))
           	| FALSE     															            (ConB(false))
 					 	| ID       																            (Var(ID))
+            | LPARENT RPARENT                                     (List [])
+            | LPARENT plctype LSQBRA RSQBRA RPARENT               (ESeq plctype)
+
+comps       : exp COMMA exp                                       ([exp1, exp2])
+            | exp COMMA comps                                     ([exp] @ comps)
           
 atomic_expr : const_exp           										            (const_exp)
             | LPARENT exp RPARENT 										            (exp)
+            | LPARENT comps RPARENT                               (List comps)
             | FN args DARROW exp END                              (makeAnon(args, exp))
 
-atomic_type	:	NIL  																		            (ListT([]))
+atomic_type	:	NIL  																		            (ListT [])
 						| INT																			            (IntT)
 						| BOOL																		            (BoolT)
 
