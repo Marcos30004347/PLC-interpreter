@@ -1,42 +1,32 @@
-11 reduce/reduce conflicts
-start symbol used on the rhs of 2 rules
-1 rule not reduced
-
-warning: start symbol appears on the rhs of <prog : decl SEMI prog >
-warning: start symbol appears on the rhs of <atomic_expr : LBRA prog RBRA >
-warning: rule <atomic_expr : ID > will never be reduced
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on RBRA
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on END
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on COMMA
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on RPARENT
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on LSQBRA
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on EOF
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on SEMI
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on TIMES
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on SUB
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on DIV
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on PLUS
 
 state 0:
 
-	prog : . exp 
-	prog : . decl SEMI prog 
+	prog : . statement 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FUN	shift 9
-	VAR	shift 8
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FUN	shift 17
+	VAR	shift 16
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
-	prog	goto 90
-	exp	goto 4
-	atomic_expr	goto 3
-	const_exp	goto 2
+	prog	goto 134
+	statement	goto 6
+	exp	goto 5
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 	decl	goto 1
 
 	.	error
@@ -44,9 +34,9 @@ state 0:
 
 state 1:
 
-	prog : decl . SEMI prog 
+	statement : decl . SEMI statement 
 
-	SEMI	shift 15
+	SEMI	shift 24
 
 
 	.	error
@@ -54,39 +44,78 @@ state 1:
 
 state 2:
 
-	atomic_expr : const_exp .  (reduce by rule 21)
+	exp : app_exp .  (reduce by rule 7)
+	app_exp : app_exp . atomic_expr 
 
-	PLUS	reduce by rule 21
-	DIV	reduce by rule 21
-	SUB	reduce by rule 21
-	TIMES	reduce by rule 21
-	SEMI	reduce by rule 21
-	EOF	reduce by rule 21
-	LSQBRA	reduce by rule 21
-	RPARENT	reduce by rule 21
-	COMMA	reduce by rule 21
-	END	reduce by rule 21
-	RBRA	reduce by rule 21
+	ID	shift 23
+	NUM	shift 22
+	PLUS	reduce by rule 7
+	DIV	reduce by rule 7
+	SUB	reduce by rule 7
+	TIMES	reduce by rule 7
+	EQUAL	reduce by rule 7
+	TRUE	shift 20
+	FALSE	shift 19
+	SEMI	reduce by rule 7
+	EOF	reduce by rule 7
+	LSQBRA	reduce by rule 7
+	LPARENT	shift 18
+	RPARENT	reduce by rule 7
+	FN	shift 15
+	ELSE	reduce by rule 7
+	THEN	reduce by rule 7
+	WITCH	reduce by rule 7
+	DTWO_POINTS	reduce by rule 7
+	COMMA	reduce by rule 7
+	END	reduce by rule 7
+	SARROW	reduce by rule 7
+	LESS	reduce by rule 7
+	LBRA	shift 8
+	RBRA	reduce by rule 7
+	AND	reduce by rule 7
+	LESSEQ	reduce by rule 7
+	DIFF	reduce by rule 7
+	PIPE	reduce by rule 7
 
+	atomic_expr	goto 25
+	const_exp	goto 3
 
 	.	error
 
 
 state 3:
 
-	exp : atomic_expr .  (reduce by rule 5)
+	atomic_expr : const_exp .  (reduce by rule 28)
 
-	PLUS	reduce by rule 5
-	DIV	reduce by rule 5
-	SUB	reduce by rule 5
-	TIMES	reduce by rule 5
-	SEMI	reduce by rule 5
-	EOF	reduce by rule 5
-	LSQBRA	reduce by rule 5
-	RPARENT	reduce by rule 5
-	COMMA	reduce by rule 5
-	END	reduce by rule 5
-	RBRA	reduce by rule 5
+	ID	reduce by rule 28
+	NUM	reduce by rule 28
+	PLUS	reduce by rule 28
+	DIV	reduce by rule 28
+	SUB	reduce by rule 28
+	TIMES	reduce by rule 28
+	EQUAL	reduce by rule 28
+	TRUE	reduce by rule 28
+	FALSE	reduce by rule 28
+	SEMI	reduce by rule 28
+	EOF	reduce by rule 28
+	LSQBRA	reduce by rule 28
+	LPARENT	reduce by rule 28
+	RPARENT	reduce by rule 28
+	FN	reduce by rule 28
+	ELSE	reduce by rule 28
+	THEN	reduce by rule 28
+	WITCH	reduce by rule 28
+	DTWO_POINTS	reduce by rule 28
+	COMMA	reduce by rule 28
+	END	reduce by rule 28
+	SARROW	reduce by rule 28
+	LESS	reduce by rule 28
+	LBRA	reduce by rule 28
+	RBRA	reduce by rule 28
+	AND	reduce by rule 28
+	LESSEQ	reduce by rule 28
+	DIFF	reduce by rule 28
+	PIPE	reduce by rule 28
 
 
 	.	error
@@ -94,256 +123,334 @@ state 3:
 
 state 4:
 
-	prog : exp .  (reduce by rule 0)
-	exp : exp . PLUS exp 
-	exp : exp . SUB exp 
-	exp : exp . TIMES exp 
-	exp : exp . DIV exp 
-	exp : exp . SEMI exp 
-	exp : exp . LSQBRA NUM RSQBRA 
+	exp : atomic_expr .  (reduce by rule 6)
+	app_exp : atomic_expr . atomic_expr 
 
-	PLUS	shift 21
-	DIV	shift 20
-	SUB	shift 19
-	TIMES	shift 18
-	SEMI	shift 17
-	EOF	reduce by rule 0
-	LSQBRA	shift 16
-	RBRA	reduce by rule 0
+	ID	shift 23
+	NUM	shift 22
+	PLUS	reduce by rule 6
+	DIV	reduce by rule 6
+	SUB	reduce by rule 6
+	TIMES	reduce by rule 6
+	EQUAL	reduce by rule 6
+	TRUE	shift 20
+	FALSE	shift 19
+	SEMI	reduce by rule 6
+	EOF	reduce by rule 6
+	LSQBRA	reduce by rule 6
+	LPARENT	shift 18
+	RPARENT	reduce by rule 6
+	FN	shift 15
+	ELSE	reduce by rule 6
+	THEN	reduce by rule 6
+	WITCH	reduce by rule 6
+	DTWO_POINTS	reduce by rule 6
+	COMMA	reduce by rule 6
+	END	reduce by rule 6
+	SARROW	reduce by rule 6
+	LESS	reduce by rule 6
+	LBRA	shift 8
+	RBRA	reduce by rule 6
+	AND	reduce by rule 6
+	LESSEQ	reduce by rule 6
+	DIFF	reduce by rule 6
+	PIPE	reduce by rule 6
 
+	atomic_expr	goto 26
+	const_exp	goto 3
 
 	.	error
 
 
 state 5:
 
-	atomic_expr : LBRA . prog RBRA 
+	statement : exp .  (reduce by rule 1)
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FUN	shift 9
-	VAR	shift 8
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	EOF	reduce by rule 1
+	LSQBRA	shift 32
+	DTWO_POINTS	shift 31
+	LESS	shift 30
+	RBRA	reduce by rule 1
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
 
-	prog	goto 22
-	exp	goto 4
-	atomic_expr	goto 3
-	const_exp	goto 2
-	decl	goto 1
 
 	.	error
 
 
 state 6:
 
-	exp : PRINT . exp 
+	prog : statement .  (reduce by rule 0)
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	EOF	reduce by rule 0
 
-	exp	goto 23
-	atomic_expr	goto 3
-	const_exp	goto 2
 
 	.	error
 
 
 state 7:
 
-	atomic_expr : FN . args DARROW exp END 
+	exp : NOT . exp 
 
-	LPARENT	shift 25
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
-	args	goto 24
+	exp	goto 39
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 8:
 
-	decl : VAR . ID EQUAL exp 
+	atomic_expr : LBRA . statement RBRA 
 
-	ID	shift 26
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FUN	shift 17
+	VAR	shift 16
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	statement	goto 40
+	exp	goto 5
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+	decl	goto 1
 
 	.	error
 
 
 state 9:
 
-	decl : FUN . ID args EQUAL exp 
-	decl : FUN . REC ID args TWO_POINTS plctype EQUAL exp 
+	exp : TL . exp 
 
-	ID	shift 28
-	REC	shift 27
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 41
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 10:
 
-	atomic_expr : LPARENT . exp RPARENT 
-	atomic_expr : LPARENT . comps RPARENT 
-	const_exp : LPARENT . RPARENT 
-	const_exp : LPARENT . plctype LSQBRA RSQBRA RPARENT 
+	exp : PRINT . exp 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LSQBRA	shift 38
-	LPARENT	shift 37
-	RPARENT	shift 36
-	FN	shift 7
-	BOOL	shift 35
-	INT	shift 34
-	NIL	shift 33
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
-	exp	goto 32
-	atomic_expr	goto 3
-	const_exp	goto 2
-	atomic_type	goto 31
-	plctype	goto 30
-	comps	goto 29
+	exp	goto 42
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 11:
 
-	const_exp : FALSE .  (reduce by rule 15)
+	exp : MATCH . exp WITCH matchexp 
 
-	PLUS	reduce by rule 15
-	DIV	reduce by rule 15
-	SUB	reduce by rule 15
-	TIMES	reduce by rule 15
-	SEMI	reduce by rule 15
-	EOF	reduce by rule 15
-	LSQBRA	reduce by rule 15
-	RPARENT	reduce by rule 15
-	COMMA	reduce by rule 15
-	END	reduce by rule 15
-	RBRA	reduce by rule 15
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 43
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 12:
 
-	const_exp : TRUE .  (reduce by rule 14)
+	exp : ISE . exp 
 
-	PLUS	reduce by rule 14
-	DIV	reduce by rule 14
-	SUB	reduce by rule 14
-	TIMES	reduce by rule 14
-	SEMI	reduce by rule 14
-	EOF	reduce by rule 14
-	LSQBRA	reduce by rule 14
-	RPARENT	reduce by rule 14
-	COMMA	reduce by rule 14
-	END	reduce by rule 14
-	RBRA	reduce by rule 14
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 44
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 13:
 
-	const_exp : NUM .  (reduce by rule 13)
+	exp : HD . exp 
 
-	PLUS	reduce by rule 13
-	DIV	reduce by rule 13
-	SUB	reduce by rule 13
-	TIMES	reduce by rule 13
-	SEMI	reduce by rule 13
-	EOF	reduce by rule 13
-	LSQBRA	reduce by rule 13
-	RPARENT	reduce by rule 13
-	COMMA	reduce by rule 13
-	END	reduce by rule 13
-	RBRA	reduce by rule 13
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 45
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on RBRA
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on END
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on COMMA
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on RPARENT
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on LSQBRA
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on EOF
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on SEMI
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on TIMES
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on SUB
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on DIV
-error:  state 14: reduce/reduce conflict between rule 16 and rule 22 on PLUS
 
 state 14:
 
-	atomic_expr : ID .  (reduce by rule 22)
-	const_exp : ID .  (reduce by rule 16)
+	exp : IF . exp THEN exp ELSE exp 
 
-	PLUS	reduce by rule 16
-	DIV	reduce by rule 16
-	SUB	reduce by rule 16
-	TIMES	reduce by rule 16
-	SEMI	reduce by rule 16
-	EOF	reduce by rule 16
-	LSQBRA	reduce by rule 16
-	RPARENT	reduce by rule 16
-	COMMA	reduce by rule 16
-	END	reduce by rule 16
-	RBRA	reduce by rule 16
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 46
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 15:
 
-	prog : decl SEMI . prog 
+	atomic_expr : FN . args DARROW exp END 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FUN	shift 9
-	VAR	shift 8
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	LPARENT	shift 48
 
-	prog	goto 39
-	exp	goto 4
-	atomic_expr	goto 3
-	const_exp	goto 2
-	decl	goto 1
+	args	goto 47
 
 	.	error
 
 
 state 16:
 
-	exp : exp LSQBRA . NUM RSQBRA 
+	decl : VAR . ID EQUAL exp 
 
-	NUM	shift 40
+	ID	shift 49
 
 
 	.	error
@@ -351,109 +458,192 @@ state 16:
 
 state 17:
 
-	exp : exp SEMI . exp 
+	decl : FUN . ID args EQUAL exp 
+	decl : FUN . REC ID args TWO_POINTS plctype EQUAL exp 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	shift 51
+	REC	shift 50
 
-	exp	goto 41
-	atomic_expr	goto 3
-	const_exp	goto 2
 
 	.	error
 
 
 state 18:
 
-	exp : exp TIMES . exp 
+	atomic_expr : LPARENT . exp RPARENT 
+	atomic_expr : LPARENT . comps RPARENT 
+	const_exp : LPARENT . RPARENT 
+	const_exp : LPARENT . plctype LSQBRA RSQBRA RPARENT 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LSQBRA	shift 61
+	LPARENT	shift 60
+	RPARENT	shift 59
+	FN	shift 15
+	BOOL	shift 58
+	INT	shift 57
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	NIL	shift 56
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
-	exp	goto 42
-	atomic_expr	goto 3
-	const_exp	goto 2
+	exp	goto 55
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+	atomic_type	goto 54
+	plctype	goto 53
+	comps	goto 52
 
 	.	error
 
 
 state 19:
 
-	exp : exp SUB . exp 
+	const_exp : FALSE .  (reduce by rule 38)
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	reduce by rule 38
+	NUM	reduce by rule 38
+	PLUS	reduce by rule 38
+	DIV	reduce by rule 38
+	SUB	reduce by rule 38
+	TIMES	reduce by rule 38
+	EQUAL	reduce by rule 38
+	TRUE	reduce by rule 38
+	FALSE	reduce by rule 38
+	SEMI	reduce by rule 38
+	EOF	reduce by rule 38
+	LSQBRA	reduce by rule 38
+	LPARENT	reduce by rule 38
+	RPARENT	reduce by rule 38
+	FN	reduce by rule 38
+	ELSE	reduce by rule 38
+	THEN	reduce by rule 38
+	WITCH	reduce by rule 38
+	DTWO_POINTS	reduce by rule 38
+	COMMA	reduce by rule 38
+	END	reduce by rule 38
+	SARROW	reduce by rule 38
+	LESS	reduce by rule 38
+	LBRA	reduce by rule 38
+	RBRA	reduce by rule 38
+	AND	reduce by rule 38
+	LESSEQ	reduce by rule 38
+	DIFF	reduce by rule 38
+	PIPE	reduce by rule 38
 
-	exp	goto 43
-	atomic_expr	goto 3
-	const_exp	goto 2
 
 	.	error
 
 
 state 20:
 
-	exp : exp DIV . exp 
+	const_exp : TRUE .  (reduce by rule 37)
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	reduce by rule 37
+	NUM	reduce by rule 37
+	PLUS	reduce by rule 37
+	DIV	reduce by rule 37
+	SUB	reduce by rule 37
+	TIMES	reduce by rule 37
+	EQUAL	reduce by rule 37
+	TRUE	reduce by rule 37
+	FALSE	reduce by rule 37
+	SEMI	reduce by rule 37
+	EOF	reduce by rule 37
+	LSQBRA	reduce by rule 37
+	LPARENT	reduce by rule 37
+	RPARENT	reduce by rule 37
+	FN	reduce by rule 37
+	ELSE	reduce by rule 37
+	THEN	reduce by rule 37
+	WITCH	reduce by rule 37
+	DTWO_POINTS	reduce by rule 37
+	COMMA	reduce by rule 37
+	END	reduce by rule 37
+	SARROW	reduce by rule 37
+	LESS	reduce by rule 37
+	LBRA	reduce by rule 37
+	RBRA	reduce by rule 37
+	AND	reduce by rule 37
+	LESSEQ	reduce by rule 37
+	DIFF	reduce by rule 37
+	PIPE	reduce by rule 37
 
-	exp	goto 44
-	atomic_expr	goto 3
-	const_exp	goto 2
 
 	.	error
 
 
 state 21:
 
-	exp : exp PLUS . exp 
+	exp : SUB . exp 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
-	exp	goto 45
-	atomic_expr	goto 3
-	const_exp	goto 2
+	exp	goto 62
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 22:
 
-	atomic_expr : LBRA prog . RBRA 
+	const_exp : NUM .  (reduce by rule 36)
 
-	RBRA	shift 46
+	ID	reduce by rule 36
+	NUM	reduce by rule 36
+	PLUS	reduce by rule 36
+	DIV	reduce by rule 36
+	SUB	reduce by rule 36
+	TIMES	reduce by rule 36
+	EQUAL	reduce by rule 36
+	TRUE	reduce by rule 36
+	FALSE	reduce by rule 36
+	SEMI	reduce by rule 36
+	EOF	reduce by rule 36
+	LSQBRA	reduce by rule 36
+	LPARENT	reduce by rule 36
+	RPARENT	reduce by rule 36
+	FN	reduce by rule 36
+	ELSE	reduce by rule 36
+	THEN	reduce by rule 36
+	WITCH	reduce by rule 36
+	DTWO_POINTS	reduce by rule 36
+	COMMA	reduce by rule 36
+	END	reduce by rule 36
+	SARROW	reduce by rule 36
+	LESS	reduce by rule 36
+	LBRA	reduce by rule 36
+	RBRA	reduce by rule 36
+	AND	reduce by rule 36
+	LESSEQ	reduce by rule 36
+	DIFF	reduce by rule 36
+	PIPE	reduce by rule 36
 
 
 	.	error
@@ -461,25 +651,37 @@ state 22:
 
 state 23:
 
-	exp : exp . PLUS exp 
-	exp : exp . SUB exp 
-	exp : exp . TIMES exp 
-	exp : exp . DIV exp 
-	exp : PRINT exp .  (reduce by rule 10)
-	exp : exp . SEMI exp 
-	exp : exp . LSQBRA NUM RSQBRA 
+	atomic_expr : ID .  (reduce by rule 29)
 
-	PLUS	reduce by rule 10
-	DIV	reduce by rule 10
-	SUB	reduce by rule 10
-	TIMES	reduce by rule 10
-	SEMI	reduce by rule 10
-	EOF	reduce by rule 10
-	LSQBRA	reduce by rule 10
-	RPARENT	reduce by rule 10
-	COMMA	reduce by rule 10
-	END	reduce by rule 10
-	RBRA	reduce by rule 10
+	ID	reduce by rule 29
+	NUM	reduce by rule 29
+	PLUS	reduce by rule 29
+	DIV	reduce by rule 29
+	SUB	reduce by rule 29
+	TIMES	reduce by rule 29
+	EQUAL	reduce by rule 29
+	TRUE	reduce by rule 29
+	FALSE	reduce by rule 29
+	SEMI	reduce by rule 29
+	EOF	reduce by rule 29
+	LSQBRA	reduce by rule 29
+	LPARENT	reduce by rule 29
+	RPARENT	reduce by rule 29
+	FN	reduce by rule 29
+	ELSE	reduce by rule 29
+	THEN	reduce by rule 29
+	WITCH	reduce by rule 29
+	DTWO_POINTS	reduce by rule 29
+	COMMA	reduce by rule 29
+	END	reduce by rule 29
+	SARROW	reduce by rule 29
+	LESS	reduce by rule 29
+	LBRA	reduce by rule 29
+	RBRA	reduce by rule 29
+	AND	reduce by rule 29
+	LESSEQ	reduce by rule 29
+	DIFF	reduce by rule 29
+	PIPE	reduce by rule 29
 
 
 	.	error
@@ -487,39 +689,107 @@ state 23:
 
 state 24:
 
-	atomic_expr : FN args . DARROW exp END 
+	statement : decl SEMI . statement 
 
-	DARROW	shift 47
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FUN	shift 17
+	VAR	shift 16
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	statement	goto 63
+	exp	goto 5
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+	decl	goto 1
 
 	.	error
 
 
 state 25:
 
-	args : LPARENT . RPARENT 
-	args : LPARENT . params RPARENT 
+	app_exp : app_exp atomic_expr .  (reduce by rule 35)
 
-	LSQBRA	shift 38
-	LPARENT	shift 52
-	RPARENT	shift 51
-	BOOL	shift 35
-	INT	shift 34
-	NIL	shift 33
+	ID	reduce by rule 35
+	NUM	reduce by rule 35
+	PLUS	reduce by rule 35
+	DIV	reduce by rule 35
+	SUB	reduce by rule 35
+	TIMES	reduce by rule 35
+	EQUAL	reduce by rule 35
+	TRUE	reduce by rule 35
+	FALSE	reduce by rule 35
+	SEMI	reduce by rule 35
+	EOF	reduce by rule 35
+	LSQBRA	reduce by rule 35
+	LPARENT	reduce by rule 35
+	RPARENT	reduce by rule 35
+	FN	reduce by rule 35
+	ELSE	reduce by rule 35
+	THEN	reduce by rule 35
+	WITCH	reduce by rule 35
+	DTWO_POINTS	reduce by rule 35
+	COMMA	reduce by rule 35
+	END	reduce by rule 35
+	SARROW	reduce by rule 35
+	LESS	reduce by rule 35
+	LBRA	reduce by rule 35
+	RBRA	reduce by rule 35
+	AND	reduce by rule 35
+	LESSEQ	reduce by rule 35
+	DIFF	reduce by rule 35
+	PIPE	reduce by rule 35
 
-	atomic_type	goto 31
-	typed_var	goto 50
-	plctype	goto 49
-	params	goto 48
 
 	.	error
 
 
 state 26:
 
-	decl : VAR ID . EQUAL exp 
+	app_exp : atomic_expr atomic_expr .  (reduce by rule 34)
 
-	EQUAL	shift 53
+	ID	reduce by rule 34
+	NUM	reduce by rule 34
+	PLUS	reduce by rule 34
+	DIV	reduce by rule 34
+	SUB	reduce by rule 34
+	TIMES	reduce by rule 34
+	EQUAL	reduce by rule 34
+	TRUE	reduce by rule 34
+	FALSE	reduce by rule 34
+	SEMI	reduce by rule 34
+	EOF	reduce by rule 34
+	LSQBRA	reduce by rule 34
+	LPARENT	reduce by rule 34
+	RPARENT	reduce by rule 34
+	FN	reduce by rule 34
+	ELSE	reduce by rule 34
+	THEN	reduce by rule 34
+	WITCH	reduce by rule 34
+	DTWO_POINTS	reduce by rule 34
+	COMMA	reduce by rule 34
+	END	reduce by rule 34
+	SARROW	reduce by rule 34
+	LESS	reduce by rule 34
+	LBRA	reduce by rule 34
+	RBRA	reduce by rule 34
+	AND	reduce by rule 34
+	LESSEQ	reduce by rule 34
+	DIFF	reduce by rule 34
+	PIPE	reduce by rule 34
 
 
 	.	error
@@ -527,83 +797,149 @@ state 26:
 
 state 27:
 
-	decl : FUN REC . ID args TWO_POINTS plctype EQUAL exp 
+	exp : exp DIFF . exp 
 
-	ID	shift 54
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 64
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 28:
 
-	decl : FUN ID . args EQUAL exp 
+	exp : exp LESSEQ . exp 
 
-	LPARENT	shift 25
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
-	args	goto 55
+	exp	goto 65
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 29:
 
-	atomic_expr : LPARENT comps . RPARENT 
+	exp : exp AND . exp 
 
-	RPARENT	shift 56
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 66
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 30:
 
-	const_exp : LPARENT plctype . LSQBRA RSQBRA RPARENT 
-	plctype : plctype . SARROW plctype 
+	exp : exp LESS . exp 
 
-	LSQBRA	shift 58
-	SARROW	shift 57
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 67
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 31:
 
-	plctype : atomic_type .  (reduce by rule 36)
+	exp : exp DTWO_POINTS . exp 
 
-	ID	reduce by rule 36
-	EQUAL	reduce by rule 36
-	LSQBRA	reduce by rule 36
-	RSQBRA	reduce by rule 36
-	RPARENT	reduce by rule 36
-	COMMA	reduce by rule 36
-	SARROW	reduce by rule 36
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 68
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 32:
 
-	exp : exp . PLUS exp 
-	exp : exp . SUB exp 
-	exp : exp . TIMES exp 
-	exp : exp . DIV exp 
-	exp : exp . SEMI exp 
-	exp : exp . LSQBRA NUM RSQBRA 
-	atomic_expr : LPARENT exp . RPARENT 
-	comps : exp . COMMA exp 
-	comps : exp . COMMA comps 
+	exp : exp LSQBRA . NUM RSQBRA 
 
-	PLUS	shift 21
-	DIV	shift 20
-	SUB	shift 19
-	TIMES	shift 18
-	SEMI	shift 17
-	LSQBRA	shift 16
-	RPARENT	shift 60
-	COMMA	shift 59
+	NUM	shift 69
 
 
 	.	error
@@ -611,127 +947,210 @@ state 32:
 
 state 33:
 
-	atomic_type : NIL .  (reduce by rule 27)
+	exp : exp SEMI . exp 
 
-	ID	reduce by rule 27
-	EQUAL	reduce by rule 27
-	LSQBRA	reduce by rule 27
-	RSQBRA	reduce by rule 27
-	RPARENT	reduce by rule 27
-	COMMA	reduce by rule 27
-	SARROW	reduce by rule 27
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 70
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 34:
 
-	atomic_type : INT .  (reduce by rule 28)
+	exp : exp EQUAL . exp 
 
-	ID	reduce by rule 28
-	EQUAL	reduce by rule 28
-	LSQBRA	reduce by rule 28
-	RSQBRA	reduce by rule 28
-	RPARENT	reduce by rule 28
-	COMMA	reduce by rule 28
-	SARROW	reduce by rule 28
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 71
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 35:
 
-	atomic_type : BOOL .  (reduce by rule 29)
+	exp : exp TIMES . exp 
 
-	ID	reduce by rule 29
-	EQUAL	reduce by rule 29
-	LSQBRA	reduce by rule 29
-	RSQBRA	reduce by rule 29
-	RPARENT	reduce by rule 29
-	COMMA	reduce by rule 29
-	SARROW	reduce by rule 29
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 72
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 36:
 
-	const_exp : LPARENT RPARENT .  (reduce by rule 17)
+	exp : exp SUB . exp 
 
-	PLUS	reduce by rule 17
-	DIV	reduce by rule 17
-	SUB	reduce by rule 17
-	TIMES	reduce by rule 17
-	SEMI	reduce by rule 17
-	EOF	reduce by rule 17
-	LSQBRA	reduce by rule 17
-	RPARENT	reduce by rule 17
-	COMMA	reduce by rule 17
-	END	reduce by rule 17
-	RBRA	reduce by rule 17
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 73
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 37:
 
-	atomic_expr : LPARENT . exp RPARENT 
-	atomic_expr : LPARENT . comps RPARENT 
-	const_exp : LPARENT . RPARENT 
-	const_exp : LPARENT . plctype LSQBRA RSQBRA RPARENT 
-	plctype : LPARENT . plctypes RPARENT 
+	exp : exp DIV . exp 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LSQBRA	shift 38
-	LPARENT	shift 37
-	RPARENT	shift 36
-	FN	shift 7
-	BOOL	shift 35
-	INT	shift 34
-	NIL	shift 33
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
-	exp	goto 32
-	atomic_expr	goto 3
-	const_exp	goto 2
-	atomic_type	goto 31
-	plctype	goto 62
-	plctypes	goto 61
-	comps	goto 29
+	exp	goto 74
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 38:
 
-	plctype : LSQBRA . plctype RSQBRA 
+	exp : exp PLUS . exp 
 
-	LSQBRA	shift 38
-	LPARENT	shift 52
-	BOOL	shift 35
-	INT	shift 34
-	NIL	shift 33
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
-	atomic_type	goto 31
-	plctype	goto 63
+	exp	goto 75
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 39:
 
-	prog : decl SEMI prog .  (reduce by rule 1)
+	exp : NOT exp .  (reduce by rule 10)
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	EOF	reduce by rule 1
-	RBRA	reduce by rule 1
+	PLUS	reduce by rule 10
+	DIV	reduce by rule 10
+	SUB	reduce by rule 10
+	TIMES	reduce by rule 10
+	EQUAL	reduce by rule 10
+	SEMI	reduce by rule 10
+	EOF	reduce by rule 10
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 10
+	ELSE	reduce by rule 10
+	THEN	reduce by rule 10
+	WITCH	reduce by rule 10
+	DTWO_POINTS	reduce by rule 10
+	COMMA	reduce by rule 10
+	END	reduce by rule 10
+	SARROW	reduce by rule 10
+	LESS	reduce by rule 10
+	RBRA	reduce by rule 10
+	AND	reduce by rule 10
+	LESSEQ	reduce by rule 10
+	DIFF	reduce by rule 10
+	PIPE	reduce by rule 10
 
 
 	.	error
@@ -739,9 +1158,9 @@ state 39:
 
 state 40:
 
-	exp : exp LSQBRA NUM . RSQBRA 
+	atomic_expr : LBRA statement . RBRA 
 
-	RSQBRA	shift 64
+	RBRA	shift 76
 
 
 	.	error
@@ -749,25 +1168,42 @@ state 40:
 
 state 41:
 
+	exp : TL exp .  (reduce by rule 13)
+	exp : exp . AND exp 
 	exp : exp . PLUS exp 
 	exp : exp . SUB exp 
 	exp : exp . TIMES exp 
 	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
 	exp : exp . SEMI exp 
-	exp : exp SEMI exp .  (reduce by rule 11)
 	exp : exp . LSQBRA NUM RSQBRA 
 
-	PLUS	shift 21
-	DIV	shift 20
-	SUB	shift 19
-	TIMES	shift 18
-	SEMI	shift 17
-	EOF	reduce by rule 11
-	LSQBRA	shift 16
-	RPARENT	reduce by rule 11
-	COMMA	reduce by rule 11
-	END	reduce by rule 11
-	RBRA	reduce by rule 11
+	PLUS	reduce by rule 13
+	DIV	reduce by rule 13
+	SUB	reduce by rule 13
+	TIMES	reduce by rule 13
+	EQUAL	reduce by rule 13
+	SEMI	reduce by rule 13
+	EOF	reduce by rule 13
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 13
+	ELSE	reduce by rule 13
+	THEN	reduce by rule 13
+	WITCH	reduce by rule 13
+	DTWO_POINTS	reduce by rule 13
+	COMMA	reduce by rule 13
+	END	reduce by rule 13
+	SARROW	reduce by rule 13
+	LESS	reduce by rule 13
+	RBRA	reduce by rule 13
+	AND	reduce by rule 13
+	LESSEQ	reduce by rule 13
+	DIFF	reduce by rule 13
+	PIPE	reduce by rule 13
 
 
 	.	error
@@ -775,25 +1211,42 @@ state 41:
 
 state 42:
 
+	exp : PRINT exp .  (reduce by rule 15)
+	exp : exp . AND exp 
 	exp : exp . PLUS exp 
 	exp : exp . SUB exp 
 	exp : exp . TIMES exp 
-	exp : exp TIMES exp .  (reduce by rule 8)
 	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
 	exp : exp . SEMI exp 
 	exp : exp . LSQBRA NUM RSQBRA 
 
-	PLUS	reduce by rule 8
-	DIV	reduce by rule 8
-	SUB	reduce by rule 8
-	TIMES	reduce by rule 8
-	SEMI	reduce by rule 8
-	EOF	reduce by rule 8
-	LSQBRA	reduce by rule 8
-	RPARENT	reduce by rule 8
-	COMMA	reduce by rule 8
-	END	reduce by rule 8
-	RBRA	reduce by rule 8
+	PLUS	reduce by rule 15
+	DIV	reduce by rule 15
+	SUB	reduce by rule 15
+	TIMES	reduce by rule 15
+	EQUAL	reduce by rule 15
+	SEMI	reduce by rule 15
+	EOF	reduce by rule 15
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 15
+	ELSE	reduce by rule 15
+	THEN	reduce by rule 15
+	WITCH	reduce by rule 15
+	DTWO_POINTS	reduce by rule 15
+	COMMA	reduce by rule 15
+	END	reduce by rule 15
+	SARROW	reduce by rule 15
+	LESS	reduce by rule 15
+	RBRA	reduce by rule 15
+	AND	reduce by rule 15
+	LESSEQ	reduce by rule 15
+	DIFF	reduce by rule 15
+	PIPE	reduce by rule 15
 
 
 	.	error
@@ -801,25 +1254,33 @@ state 42:
 
 state 43:
 
+	exp : MATCH exp . WITCH matchexp 
+	exp : exp . AND exp 
 	exp : exp . PLUS exp 
 	exp : exp . SUB exp 
-	exp : exp SUB exp .  (reduce by rule 7)
 	exp : exp . TIMES exp 
 	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
 	exp : exp . SEMI exp 
 	exp : exp . LSQBRA NUM RSQBRA 
 
-	PLUS	reduce by rule 7
-	DIV	reduce by rule 7
-	SUB	reduce by rule 7
-	TIMES	reduce by rule 7
-	SEMI	reduce by rule 7
-	EOF	reduce by rule 7
-	LSQBRA	reduce by rule 7
-	RPARENT	reduce by rule 7
-	COMMA	reduce by rule 7
-	END	reduce by rule 7
-	RBRA	reduce by rule 7
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	LSQBRA	shift 32
+	WITCH	shift 77
+	DTWO_POINTS	shift 31
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
 
 
 	.	error
@@ -827,25 +1288,42 @@ state 43:
 
 state 44:
 
+	exp : ISE exp .  (reduce by rule 14)
+	exp : exp . AND exp 
 	exp : exp . PLUS exp 
 	exp : exp . SUB exp 
 	exp : exp . TIMES exp 
 	exp : exp . DIV exp 
-	exp : exp DIV exp .  (reduce by rule 9)
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
 	exp : exp . SEMI exp 
 	exp : exp . LSQBRA NUM RSQBRA 
 
-	PLUS	reduce by rule 9
-	DIV	reduce by rule 9
-	SUB	reduce by rule 9
-	TIMES	reduce by rule 9
-	SEMI	reduce by rule 9
-	EOF	reduce by rule 9
-	LSQBRA	reduce by rule 9
-	RPARENT	reduce by rule 9
-	COMMA	reduce by rule 9
-	END	reduce by rule 9
-	RBRA	reduce by rule 9
+	PLUS	reduce by rule 14
+	DIV	reduce by rule 14
+	SUB	reduce by rule 14
+	TIMES	reduce by rule 14
+	EQUAL	reduce by rule 14
+	SEMI	reduce by rule 14
+	EOF	reduce by rule 14
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 14
+	ELSE	reduce by rule 14
+	THEN	reduce by rule 14
+	WITCH	reduce by rule 14
+	DTWO_POINTS	reduce by rule 14
+	COMMA	reduce by rule 14
+	END	reduce by rule 14
+	SARROW	reduce by rule 14
+	LESS	reduce by rule 14
+	RBRA	reduce by rule 14
+	AND	reduce by rule 14
+	LESSEQ	reduce by rule 14
+	DIFF	reduce by rule 14
+	PIPE	reduce by rule 14
 
 
 	.	error
@@ -853,25 +1331,42 @@ state 44:
 
 state 45:
 
+	exp : HD exp .  (reduce by rule 12)
+	exp : exp . AND exp 
 	exp : exp . PLUS exp 
-	exp : exp PLUS exp .  (reduce by rule 6)
 	exp : exp . SUB exp 
 	exp : exp . TIMES exp 
 	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
 	exp : exp . SEMI exp 
 	exp : exp . LSQBRA NUM RSQBRA 
 
-	PLUS	reduce by rule 6
-	DIV	reduce by rule 6
-	SUB	reduce by rule 6
-	TIMES	reduce by rule 6
-	SEMI	reduce by rule 6
-	EOF	reduce by rule 6
-	LSQBRA	reduce by rule 6
-	RPARENT	reduce by rule 6
-	COMMA	reduce by rule 6
-	END	reduce by rule 6
-	RBRA	reduce by rule 6
+	PLUS	reduce by rule 12
+	DIV	reduce by rule 12
+	SUB	reduce by rule 12
+	TIMES	reduce by rule 12
+	EQUAL	reduce by rule 12
+	SEMI	reduce by rule 12
+	EOF	reduce by rule 12
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 12
+	ELSE	reduce by rule 12
+	THEN	reduce by rule 12
+	WITCH	reduce by rule 12
+	DTWO_POINTS	reduce by rule 12
+	COMMA	reduce by rule 12
+	END	reduce by rule 12
+	SARROW	reduce by rule 12
+	LESS	reduce by rule 12
+	RBRA	reduce by rule 12
+	AND	reduce by rule 12
+	LESSEQ	reduce by rule 12
+	DIFF	reduce by rule 12
+	PIPE	reduce by rule 12
 
 
 	.	error
@@ -879,19 +1374,33 @@ state 45:
 
 state 46:
 
-	atomic_expr : LBRA prog RBRA .  (reduce by rule 23)
+	exp : IF exp . THEN exp ELSE exp 
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	PLUS	reduce by rule 23
-	DIV	reduce by rule 23
-	SUB	reduce by rule 23
-	TIMES	reduce by rule 23
-	SEMI	reduce by rule 23
-	EOF	reduce by rule 23
-	LSQBRA	reduce by rule 23
-	RPARENT	reduce by rule 23
-	COMMA	reduce by rule 23
-	END	reduce by rule 23
-	RBRA	reduce by rule 23
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	LSQBRA	shift 32
+	THEN	shift 78
+	DTWO_POINTS	shift 31
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
 
 
 	.	error
@@ -899,41 +1408,39 @@ state 46:
 
 state 47:
 
-	atomic_expr : FN args DARROW . exp END 
+	atomic_expr : FN args . DARROW exp END 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	DARROW	shift 79
 
-	exp	goto 65
-	atomic_expr	goto 3
-	const_exp	goto 2
 
 	.	error
 
 
 state 48:
 
-	args : LPARENT params . RPARENT 
+	args : LPARENT . RPARENT 
+	args : LPARENT . params RPARENT 
 
-	RPARENT	shift 66
+	LSQBRA	shift 61
+	LPARENT	shift 84
+	RPARENT	shift 83
+	BOOL	shift 58
+	INT	shift 57
+	NIL	shift 56
 
+	atomic_type	goto 54
+	typed_var	goto 82
+	plctype	goto 81
+	params	goto 80
 
 	.	error
 
 
 state 49:
 
-	typed_var : plctype . ID 
-	plctype : plctype . SARROW plctype 
+	decl : VAR ID . EQUAL exp 
 
-	ID	shift 67
-	SARROW	shift 57
+	EQUAL	shift 85
 
 
 	.	error
@@ -941,11 +1448,9 @@ state 49:
 
 state 50:
 
-	params : typed_var .  (reduce by rule 32)
-	params : typed_var . COMMA params 
+	decl : FUN REC . ID args TWO_POINTS plctype EQUAL exp 
 
-	RPARENT	reduce by rule 32
-	COMMA	shift 68
+	ID	shift 86
 
 
 	.	error
@@ -953,69 +1458,85 @@ state 50:
 
 state 51:
 
-	args : LPARENT RPARENT .  (reduce by rule 30)
+	decl : FUN ID . args EQUAL exp 
 
-	EQUAL	reduce by rule 30
-	TWO_POINTS	reduce by rule 30
-	DARROW	reduce by rule 30
+	LPARENT	shift 48
 
+	args	goto 87
 
 	.	error
 
 
 state 52:
 
-	plctype : LPARENT . plctypes RPARENT 
+	atomic_expr : LPARENT comps . RPARENT 
 
-	LSQBRA	shift 38
-	LPARENT	shift 52
-	BOOL	shift 35
-	INT	shift 34
-	NIL	shift 33
+	RPARENT	shift 88
 
-	atomic_type	goto 31
-	plctype	goto 69
-	plctypes	goto 61
 
 	.	error
 
 
 state 53:
 
-	decl : VAR ID EQUAL . exp 
+	const_exp : LPARENT plctype . LSQBRA RSQBRA RPARENT 
+	plctype : plctype . SARROW plctype 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	LSQBRA	shift 90
+	SARROW	shift 89
 
-	exp	goto 70
-	atomic_expr	goto 3
-	const_exp	goto 2
 
 	.	error
 
 
 state 54:
 
-	decl : FUN REC ID . args TWO_POINTS plctype EQUAL exp 
+	plctype : atomic_type .  (reduce by rule 52)
 
-	LPARENT	shift 25
+	ID	reduce by rule 52
+	EQUAL	reduce by rule 52
+	LSQBRA	reduce by rule 52
+	RSQBRA	reduce by rule 52
+	RPARENT	reduce by rule 52
+	COMMA	reduce by rule 52
+	SARROW	reduce by rule 52
 
-	args	goto 71
 
 	.	error
 
 
 state 55:
 
-	decl : FUN ID args . EQUAL exp 
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+	atomic_expr : LPARENT exp . RPARENT 
+	comps : exp . COMMA exp 
+	comps : exp . COMMA comps 
 
-	EQUAL	shift 72
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	LSQBRA	shift 32
+	RPARENT	shift 92
+	DTWO_POINTS	shift 31
+	COMMA	shift 91
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
 
 
 	.	error
@@ -1023,19 +1544,15 @@ state 55:
 
 state 56:
 
-	atomic_expr : LPARENT comps RPARENT .  (reduce by rule 25)
+	atomic_type : NIL .  (reduce by rule 56)
 
-	PLUS	reduce by rule 25
-	DIV	reduce by rule 25
-	SUB	reduce by rule 25
-	TIMES	reduce by rule 25
-	SEMI	reduce by rule 25
-	EOF	reduce by rule 25
-	LSQBRA	reduce by rule 25
-	RPARENT	reduce by rule 25
-	COMMA	reduce by rule 25
-	END	reduce by rule 25
-	RBRA	reduce by rule 25
+	ID	reduce by rule 56
+	EQUAL	reduce by rule 56
+	LSQBRA	reduce by rule 56
+	RSQBRA	reduce by rule 56
+	RPARENT	reduce by rule 56
+	COMMA	reduce by rule 56
+	SARROW	reduce by rule 56
 
 
 	.	error
@@ -1043,25 +1560,31 @@ state 56:
 
 state 57:
 
-	plctype : plctype SARROW . plctype 
+	atomic_type : INT .  (reduce by rule 57)
 
-	LSQBRA	shift 38
-	LPARENT	shift 52
-	BOOL	shift 35
-	INT	shift 34
-	NIL	shift 33
+	ID	reduce by rule 57
+	EQUAL	reduce by rule 57
+	LSQBRA	reduce by rule 57
+	RSQBRA	reduce by rule 57
+	RPARENT	reduce by rule 57
+	COMMA	reduce by rule 57
+	SARROW	reduce by rule 57
 
-	atomic_type	goto 31
-	plctype	goto 73
 
 	.	error
 
 
 state 58:
 
-	const_exp : LPARENT plctype LSQBRA . RSQBRA RPARENT 
+	atomic_type : BOOL .  (reduce by rule 58)
 
-	RSQBRA	shift 74
+	ID	reduce by rule 58
+	EQUAL	reduce by rule 58
+	LSQBRA	reduce by rule 58
+	RSQBRA	reduce by rule 58
+	RPARENT	reduce by rule 58
+	COMMA	reduce by rule 58
+	SARROW	reduce by rule 58
 
 
 	.	error
@@ -1069,66 +1592,137 @@ state 58:
 
 state 59:
 
-	comps : exp COMMA . exp 
-	comps : exp COMMA . comps 
+	const_exp : LPARENT RPARENT .  (reduce by rule 39)
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	reduce by rule 39
+	NUM	reduce by rule 39
+	PLUS	reduce by rule 39
+	DIV	reduce by rule 39
+	SUB	reduce by rule 39
+	TIMES	reduce by rule 39
+	EQUAL	reduce by rule 39
+	TRUE	reduce by rule 39
+	FALSE	reduce by rule 39
+	SEMI	reduce by rule 39
+	EOF	reduce by rule 39
+	LSQBRA	reduce by rule 39
+	LPARENT	reduce by rule 39
+	RPARENT	reduce by rule 39
+	FN	reduce by rule 39
+	ELSE	reduce by rule 39
+	THEN	reduce by rule 39
+	WITCH	reduce by rule 39
+	DTWO_POINTS	reduce by rule 39
+	COMMA	reduce by rule 39
+	END	reduce by rule 39
+	SARROW	reduce by rule 39
+	LESS	reduce by rule 39
+	LBRA	reduce by rule 39
+	RBRA	reduce by rule 39
+	AND	reduce by rule 39
+	LESSEQ	reduce by rule 39
+	DIFF	reduce by rule 39
+	PIPE	reduce by rule 39
 
-	exp	goto 76
-	atomic_expr	goto 3
-	const_exp	goto 2
-	comps	goto 75
 
 	.	error
 
 
 state 60:
 
-	atomic_expr : LPARENT exp RPARENT .  (reduce by rule 24)
+	atomic_expr : LPARENT . exp RPARENT 
+	atomic_expr : LPARENT . comps RPARENT 
+	const_exp : LPARENT . RPARENT 
+	const_exp : LPARENT . plctype LSQBRA RSQBRA RPARENT 
+	plctype : LPARENT . plctypes RPARENT 
 
-	PLUS	reduce by rule 24
-	DIV	reduce by rule 24
-	SUB	reduce by rule 24
-	TIMES	reduce by rule 24
-	SEMI	reduce by rule 24
-	EOF	reduce by rule 24
-	LSQBRA	reduce by rule 24
-	RPARENT	reduce by rule 24
-	COMMA	reduce by rule 24
-	END	reduce by rule 24
-	RBRA	reduce by rule 24
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LSQBRA	shift 61
+	LPARENT	shift 60
+	RPARENT	shift 59
+	FN	shift 15
+	BOOL	shift 58
+	INT	shift 57
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	NIL	shift 56
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 55
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+	atomic_type	goto 54
+	plctype	goto 94
+	plctypes	goto 93
+	comps	goto 52
 
 	.	error
 
 
 state 61:
 
-	plctype : LPARENT plctypes . RPARENT 
+	plctype : LSQBRA . plctype RSQBRA 
 
-	RPARENT	shift 77
+	LSQBRA	shift 61
+	LPARENT	shift 84
+	BOOL	shift 58
+	INT	shift 57
+	NIL	shift 56
 
+	atomic_type	goto 54
+	plctype	goto 95
 
 	.	error
 
 
 state 62:
 
-	const_exp : LPARENT plctype . LSQBRA RSQBRA RPARENT 
-	plctype : plctype . SARROW plctype 
-	plctypes : plctype . COMMA plctype 
-	plctypes : plctype . COMMA plctypes 
+	exp : SUB exp .  (reduce by rule 11)
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	LSQBRA	shift 58
-	COMMA	shift 78
-	SARROW	shift 57
+	PLUS	reduce by rule 11
+	DIV	shift 37
+	SUB	reduce by rule 11
+	TIMES	shift 35
+	EQUAL	reduce by rule 11
+	SEMI	reduce by rule 11
+	EOF	reduce by rule 11
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 11
+	ELSE	reduce by rule 11
+	THEN	reduce by rule 11
+	WITCH	reduce by rule 11
+	DTWO_POINTS	reduce by rule 11
+	COMMA	reduce by rule 11
+	END	reduce by rule 11
+	SARROW	reduce by rule 11
+	LESS	reduce by rule 11
+	RBRA	reduce by rule 11
+	AND	reduce by rule 11
+	LESSEQ	reduce by rule 11
+	DIFF	reduce by rule 11
+	PIPE	reduce by rule 11
 
 
 	.	error
@@ -1136,11 +1730,10 @@ state 62:
 
 state 63:
 
-	plctype : plctype . SARROW plctype 
-	plctype : LSQBRA plctype . RSQBRA 
+	statement : decl SEMI statement .  (reduce by rule 2)
 
-	RSQBRA	shift 79
-	SARROW	shift 57
+	EOF	reduce by rule 2
+	RBRA	reduce by rule 2
 
 
 	.	error
@@ -1148,19 +1741,42 @@ state 63:
 
 state 64:
 
-	exp : exp LSQBRA NUM RSQBRA .  (reduce by rule 12)
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp DIFF exp .  (reduce by rule 22)
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	PLUS	reduce by rule 12
-	DIV	reduce by rule 12
-	SUB	reduce by rule 12
-	TIMES	reduce by rule 12
-	SEMI	reduce by rule 12
-	EOF	reduce by rule 12
-	LSQBRA	reduce by rule 12
-	RPARENT	reduce by rule 12
-	COMMA	reduce by rule 12
-	END	reduce by rule 12
-	RBRA	reduce by rule 12
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	reduce by rule 22
+	SEMI	reduce by rule 22
+	EOF	reduce by rule 22
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 22
+	ELSE	reduce by rule 22
+	THEN	reduce by rule 22
+	WITCH	reduce by rule 22
+	DTWO_POINTS	shift 31
+	COMMA	reduce by rule 22
+	END	reduce by rule 22
+	SARROW	reduce by rule 22
+	LESS	shift 30
+	RBRA	reduce by rule 22
+	AND	reduce by rule 22
+	LESSEQ	shift 28
+	DIFF	reduce by rule 22
+	PIPE	reduce by rule 22
 
 
 	.	error
@@ -1168,21 +1784,42 @@ state 64:
 
 state 65:
 
+	exp : exp . AND exp 
 	exp : exp . PLUS exp 
 	exp : exp . SUB exp 
 	exp : exp . TIMES exp 
 	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp LESSEQ exp .  (reduce by rule 23)
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
 	exp : exp . SEMI exp 
 	exp : exp . LSQBRA NUM RSQBRA 
-	atomic_expr : FN args DARROW exp . END 
 
-	PLUS	shift 21
-	DIV	shift 20
-	SUB	shift 19
-	TIMES	shift 18
-	SEMI	shift 17
-	LSQBRA	shift 16
-	END	shift 80
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	reduce by rule 23
+	SEMI	reduce by rule 23
+	EOF	reduce by rule 23
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 23
+	ELSE	reduce by rule 23
+	THEN	reduce by rule 23
+	WITCH	reduce by rule 23
+	DTWO_POINTS	shift 31
+	COMMA	reduce by rule 23
+	END	reduce by rule 23
+	SARROW	reduce by rule 23
+	LESS	reduce by rule 23
+	RBRA	reduce by rule 23
+	AND	reduce by rule 23
+	LESSEQ	reduce by rule 23
+	DIFF	reduce by rule 23
+	PIPE	reduce by rule 23
 
 
 	.	error
@@ -1190,11 +1827,42 @@ state 65:
 
 state 66:
 
-	args : LPARENT params RPARENT .  (reduce by rule 31)
+	exp : exp . AND exp 
+	exp : exp AND exp .  (reduce by rule 16)
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	EQUAL	reduce by rule 31
-	TWO_POINTS	reduce by rule 31
-	DARROW	reduce by rule 31
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	reduce by rule 16
+	EOF	reduce by rule 16
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 16
+	ELSE	reduce by rule 16
+	THEN	reduce by rule 16
+	WITCH	reduce by rule 16
+	DTWO_POINTS	shift 31
+	COMMA	reduce by rule 16
+	END	reduce by rule 16
+	SARROW	reduce by rule 16
+	LESS	shift 30
+	RBRA	reduce by rule 16
+	AND	reduce by rule 16
+	LESSEQ	shift 28
+	DIFF	shift 27
+	PIPE	reduce by rule 16
 
 
 	.	error
@@ -1202,10 +1870,42 @@ state 66:
 
 state 67:
 
-	typed_var : plctype ID .  (reduce by rule 40)
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp LESS exp .  (reduce by rule 24)
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	RPARENT	reduce by rule 40
-	COMMA	reduce by rule 40
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	reduce by rule 24
+	SEMI	reduce by rule 24
+	EOF	reduce by rule 24
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 24
+	ELSE	reduce by rule 24
+	THEN	reduce by rule 24
+	WITCH	reduce by rule 24
+	DTWO_POINTS	shift 31
+	COMMA	reduce by rule 24
+	END	reduce by rule 24
+	SARROW	reduce by rule 24
+	LESS	reduce by rule 24
+	RBRA	reduce by rule 24
+	AND	reduce by rule 24
+	LESSEQ	reduce by rule 24
+	DIFF	reduce by rule 24
+	PIPE	reduce by rule 24
 
 
 	.	error
@@ -1213,30 +1913,52 @@ state 67:
 
 state 68:
 
-	params : typed_var COMMA . params 
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp DTWO_POINTS exp .  (reduce by rule 25)
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	LSQBRA	shift 38
-	LPARENT	shift 52
-	BOOL	shift 35
-	INT	shift 34
-	NIL	shift 33
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	reduce by rule 25
+	SEMI	reduce by rule 25
+	EOF	reduce by rule 25
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 25
+	ELSE	reduce by rule 25
+	THEN	reduce by rule 25
+	WITCH	reduce by rule 25
+	DTWO_POINTS	shift 31
+	COMMA	reduce by rule 25
+	END	reduce by rule 25
+	SARROW	reduce by rule 25
+	LESS	reduce by rule 25
+	RBRA	reduce by rule 25
+	AND	reduce by rule 25
+	LESSEQ	reduce by rule 25
+	DIFF	reduce by rule 25
+	PIPE	reduce by rule 25
 
-	atomic_type	goto 31
-	typed_var	goto 50
-	plctype	goto 49
-	params	goto 81
 
 	.	error
 
 
 state 69:
 
-	plctype : plctype . SARROW plctype 
-	plctypes : plctype . COMMA plctype 
-	plctypes : plctype . COMMA plctypes 
+	exp : exp LSQBRA NUM . RSQBRA 
 
-	COMMA	shift 78
-	SARROW	shift 57
+	RSQBRA	shift 96
 
 
 	.	error
@@ -1244,20 +1966,42 @@ state 69:
 
 state 70:
 
+	exp : exp . AND exp 
 	exp : exp . PLUS exp 
 	exp : exp . SUB exp 
 	exp : exp . TIMES exp 
 	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
 	exp : exp . SEMI exp 
+	exp : exp SEMI exp .  (reduce by rule 26)
 	exp : exp . LSQBRA NUM RSQBRA 
-	decl : VAR ID EQUAL exp .  (reduce by rule 2)
 
-	PLUS	shift 21
-	DIV	shift 20
-	SUB	shift 19
-	TIMES	shift 18
-	SEMI	reduce by rule 2
-	LSQBRA	shift 16
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	EOF	reduce by rule 26
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 26
+	ELSE	reduce by rule 26
+	THEN	reduce by rule 26
+	WITCH	reduce by rule 26
+	DTWO_POINTS	shift 31
+	COMMA	reduce by rule 26
+	END	reduce by rule 26
+	SARROW	reduce by rule 26
+	LESS	shift 30
+	RBRA	reduce by rule 26
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+	PIPE	reduce by rule 26
 
 
 	.	error
@@ -1265,9 +2009,42 @@ state 70:
 
 state 71:
 
-	decl : FUN REC ID args . TWO_POINTS plctype EQUAL exp 
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp EQUAL exp .  (reduce by rule 21)
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	TWO_POINTS	shift 82
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	reduce by rule 21
+	SEMI	reduce by rule 21
+	EOF	reduce by rule 21
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 21
+	ELSE	reduce by rule 21
+	THEN	reduce by rule 21
+	WITCH	reduce by rule 21
+	DTWO_POINTS	shift 31
+	COMMA	reduce by rule 21
+	END	reduce by rule 21
+	SARROW	reduce by rule 21
+	LESS	shift 30
+	RBRA	reduce by rule 21
+	AND	reduce by rule 21
+	LESSEQ	shift 28
+	DIFF	reduce by rule 21
+	PIPE	reduce by rule 21
 
 
 	.	error
@@ -1275,36 +2052,85 @@ state 71:
 
 state 72:
 
-	decl : FUN ID args EQUAL . exp 
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp TIMES exp .  (reduce by rule 19)
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	PLUS	reduce by rule 19
+	DIV	reduce by rule 19
+	SUB	reduce by rule 19
+	TIMES	reduce by rule 19
+	EQUAL	reduce by rule 19
+	SEMI	reduce by rule 19
+	EOF	reduce by rule 19
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 19
+	ELSE	reduce by rule 19
+	THEN	reduce by rule 19
+	WITCH	reduce by rule 19
+	DTWO_POINTS	reduce by rule 19
+	COMMA	reduce by rule 19
+	END	reduce by rule 19
+	SARROW	reduce by rule 19
+	LESS	reduce by rule 19
+	RBRA	reduce by rule 19
+	AND	reduce by rule 19
+	LESSEQ	reduce by rule 19
+	DIFF	reduce by rule 19
+	PIPE	reduce by rule 19
 
-	exp	goto 83
-	atomic_expr	goto 3
-	const_exp	goto 2
 
 	.	error
 
 
 state 73:
 
-	plctype : plctype . SARROW plctype 
-	plctype : plctype SARROW plctype .  (reduce by rule 38)
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp SUB exp .  (reduce by rule 18)
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	ID	reduce by rule 38
-	EQUAL	reduce by rule 38
-	LSQBRA	reduce by rule 38
-	RSQBRA	reduce by rule 38
-	RPARENT	reduce by rule 38
-	COMMA	reduce by rule 38
-	SARROW	shift 57
+	PLUS	reduce by rule 18
+	DIV	shift 37
+	SUB	reduce by rule 18
+	TIMES	shift 35
+	EQUAL	reduce by rule 18
+	SEMI	reduce by rule 18
+	EOF	reduce by rule 18
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 18
+	ELSE	reduce by rule 18
+	THEN	reduce by rule 18
+	WITCH	reduce by rule 18
+	DTWO_POINTS	reduce by rule 18
+	COMMA	reduce by rule 18
+	END	reduce by rule 18
+	SARROW	reduce by rule 18
+	LESS	reduce by rule 18
+	RBRA	reduce by rule 18
+	AND	reduce by rule 18
+	LESSEQ	reduce by rule 18
+	DIFF	reduce by rule 18
+	PIPE	reduce by rule 18
 
 
 	.	error
@@ -1312,9 +2138,42 @@ state 73:
 
 state 74:
 
-	const_exp : LPARENT plctype LSQBRA RSQBRA . RPARENT 
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp DIV exp .  (reduce by rule 20)
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	RPARENT	shift 84
+	PLUS	reduce by rule 20
+	DIV	reduce by rule 20
+	SUB	reduce by rule 20
+	TIMES	reduce by rule 20
+	EQUAL	reduce by rule 20
+	SEMI	reduce by rule 20
+	EOF	reduce by rule 20
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 20
+	ELSE	reduce by rule 20
+	THEN	reduce by rule 20
+	WITCH	reduce by rule 20
+	DTWO_POINTS	reduce by rule 20
+	COMMA	reduce by rule 20
+	END	reduce by rule 20
+	SARROW	reduce by rule 20
+	LESS	reduce by rule 20
+	RBRA	reduce by rule 20
+	AND	reduce by rule 20
+	LESSEQ	reduce by rule 20
+	DIFF	reduce by rule 20
+	PIPE	reduce by rule 20
 
 
 	.	error
@@ -1322,9 +2181,42 @@ state 74:
 
 state 75:
 
-	comps : exp COMMA comps .  (reduce by rule 20)
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp PLUS exp .  (reduce by rule 17)
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
 
-	RPARENT	reduce by rule 20
+	PLUS	reduce by rule 17
+	DIV	shift 37
+	SUB	reduce by rule 17
+	TIMES	shift 35
+	EQUAL	reduce by rule 17
+	SEMI	reduce by rule 17
+	EOF	reduce by rule 17
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 17
+	ELSE	reduce by rule 17
+	THEN	reduce by rule 17
+	WITCH	reduce by rule 17
+	DTWO_POINTS	reduce by rule 17
+	COMMA	reduce by rule 17
+	END	reduce by rule 17
+	SARROW	reduce by rule 17
+	LESS	reduce by rule 17
+	RBRA	reduce by rule 17
+	AND	reduce by rule 17
+	LESSEQ	reduce by rule 17
+	DIFF	reduce by rule 17
+	PIPE	reduce by rule 17
 
 
 	.	error
@@ -1332,24 +2224,37 @@ state 75:
 
 state 76:
 
-	exp : exp . PLUS exp 
-	exp : exp . SUB exp 
-	exp : exp . TIMES exp 
-	exp : exp . DIV exp 
-	exp : exp . SEMI exp 
-	exp : exp . LSQBRA NUM RSQBRA 
-	comps : exp . COMMA exp 
-	comps : exp COMMA exp .  (reduce by rule 19)
-	comps : exp . COMMA comps 
+	atomic_expr : LBRA statement RBRA .  (reduce by rule 30)
 
-	PLUS	shift 21
-	DIV	shift 20
-	SUB	shift 19
-	TIMES	shift 18
-	SEMI	shift 17
-	LSQBRA	shift 16
-	RPARENT	reduce by rule 19
-	COMMA	shift 59
+	ID	reduce by rule 30
+	NUM	reduce by rule 30
+	PLUS	reduce by rule 30
+	DIV	reduce by rule 30
+	SUB	reduce by rule 30
+	TIMES	reduce by rule 30
+	EQUAL	reduce by rule 30
+	TRUE	reduce by rule 30
+	FALSE	reduce by rule 30
+	SEMI	reduce by rule 30
+	EOF	reduce by rule 30
+	LSQBRA	reduce by rule 30
+	LPARENT	reduce by rule 30
+	RPARENT	reduce by rule 30
+	FN	reduce by rule 30
+	ELSE	reduce by rule 30
+	THEN	reduce by rule 30
+	WITCH	reduce by rule 30
+	DTWO_POINTS	reduce by rule 30
+	COMMA	reduce by rule 30
+	END	reduce by rule 30
+	SARROW	reduce by rule 30
+	LESS	reduce by rule 30
+	LBRA	reduce by rule 30
+	RBRA	reduce by rule 30
+	AND	reduce by rule 30
+	LESSEQ	reduce by rule 30
+	DIFF	reduce by rule 30
+	PIPE	reduce by rule 30
 
 
 	.	error
@@ -1357,69 +2262,77 @@ state 76:
 
 state 77:
 
-	plctype : LPARENT plctypes RPARENT .  (reduce by rule 37)
+	exp : MATCH exp WITCH . matchexp 
 
-	ID	reduce by rule 37
-	EQUAL	reduce by rule 37
-	LSQBRA	reduce by rule 37
-	RSQBRA	reduce by rule 37
-	RPARENT	reduce by rule 37
-	COMMA	reduce by rule 37
-	SARROW	reduce by rule 37
+	END	shift 99
+	PIPE	shift 98
 
+	matchexp	goto 97
 
 	.	error
 
 
 state 78:
 
-	plctypes : plctype COMMA . plctype 
-	plctypes : plctype COMMA . plctypes 
+	exp : IF exp THEN . exp ELSE exp 
 
-	LSQBRA	shift 38
-	LPARENT	shift 52
-	BOOL	shift 35
-	INT	shift 34
-	NIL	shift 33
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
-	atomic_type	goto 31
-	plctype	goto 86
-	plctypes	goto 85
+	exp	goto 100
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 79:
 
-	plctype : LSQBRA plctype RSQBRA .  (reduce by rule 39)
+	atomic_expr : FN args DARROW . exp END 
 
-	ID	reduce by rule 39
-	EQUAL	reduce by rule 39
-	LSQBRA	reduce by rule 39
-	RSQBRA	reduce by rule 39
-	RPARENT	reduce by rule 39
-	COMMA	reduce by rule 39
-	SARROW	reduce by rule 39
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 101
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 80:
 
-	atomic_expr : FN args DARROW exp END .  (reduce by rule 26)
+	args : LPARENT params . RPARENT 
 
-	PLUS	reduce by rule 26
-	DIV	reduce by rule 26
-	SUB	reduce by rule 26
-	TIMES	reduce by rule 26
-	SEMI	reduce by rule 26
-	EOF	reduce by rule 26
-	LSQBRA	reduce by rule 26
-	RPARENT	reduce by rule 26
-	COMMA	reduce by rule 26
-	END	reduce by rule 26
-	RBRA	reduce by rule 26
+	RPARENT	shift 102
 
 
 	.	error
@@ -1427,9 +2340,11 @@ state 80:
 
 state 81:
 
-	params : typed_var COMMA params .  (reduce by rule 33)
+	typed_var : plctype . ID 
+	plctype : plctype . SARROW plctype 
 
-	RPARENT	reduce by rule 33
+	ID	shift 103
+	SARROW	shift 89
 
 
 	.	error
@@ -1437,36 +2352,23 @@ state 81:
 
 state 82:
 
-	decl : FUN REC ID args TWO_POINTS . plctype EQUAL exp 
+	params : typed_var .  (reduce by rule 49)
+	params : typed_var . COMMA params 
 
-	LSQBRA	shift 38
-	LPARENT	shift 52
-	BOOL	shift 35
-	INT	shift 34
-	NIL	shift 33
+	RPARENT	reduce by rule 49
+	COMMA	shift 104
 
-	atomic_type	goto 31
-	plctype	goto 87
 
 	.	error
 
 
 state 83:
 
-	exp : exp . PLUS exp 
-	exp : exp . SUB exp 
-	exp : exp . TIMES exp 
-	exp : exp . DIV exp 
-	exp : exp . SEMI exp 
-	exp : exp . LSQBRA NUM RSQBRA 
-	decl : FUN ID args EQUAL exp .  (reduce by rule 3)
+	args : LPARENT RPARENT .  (reduce by rule 47)
 
-	PLUS	shift 21
-	DIV	shift 20
-	SUB	shift 19
-	TIMES	shift 18
-	SEMI	reduce by rule 3
-	LSQBRA	shift 16
+	EQUAL	reduce by rule 47
+	TWO_POINTS	reduce by rule 47
+	DARROW	reduce by rule 47
 
 
 	.	error
@@ -1474,56 +2376,65 @@ state 83:
 
 state 84:
 
-	const_exp : LPARENT plctype LSQBRA RSQBRA RPARENT .  (reduce by rule 18)
+	plctype : LPARENT . plctypes RPARENT 
 
-	PLUS	reduce by rule 18
-	DIV	reduce by rule 18
-	SUB	reduce by rule 18
-	TIMES	reduce by rule 18
-	SEMI	reduce by rule 18
-	EOF	reduce by rule 18
-	LSQBRA	reduce by rule 18
-	RPARENT	reduce by rule 18
-	COMMA	reduce by rule 18
-	END	reduce by rule 18
-	RBRA	reduce by rule 18
+	LSQBRA	shift 61
+	LPARENT	shift 84
+	BOOL	shift 58
+	INT	shift 57
+	NIL	shift 56
 
+	atomic_type	goto 54
+	plctype	goto 105
+	plctypes	goto 93
 
 	.	error
 
 
 state 85:
 
-	plctypes : plctype COMMA plctypes .  (reduce by rule 35)
+	decl : VAR ID EQUAL . exp 
 
-	RPARENT	reduce by rule 35
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
 
+	exp	goto 106
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
 
 	.	error
 
 
 state 86:
 
-	plctype : plctype . SARROW plctype 
-	plctypes : plctype . COMMA plctype 
-	plctypes : plctype COMMA plctype .  (reduce by rule 34)
-	plctypes : plctype . COMMA plctypes 
+	decl : FUN REC ID . args TWO_POINTS plctype EQUAL exp 
 
-	RPARENT	reduce by rule 34
-	COMMA	shift 78
-	SARROW	shift 57
+	LPARENT	shift 48
 
+	args	goto 107
 
 	.	error
 
 
 state 87:
 
-	decl : FUN REC ID args TWO_POINTS plctype . EQUAL exp 
-	plctype : plctype . SARROW plctype 
+	decl : FUN ID args . EQUAL exp 
 
-	EQUAL	shift 88
-	SARROW	shift 57
+	EQUAL	shift 108
 
 
 	.	error
@@ -1531,46 +2442,1067 @@ state 87:
 
 state 88:
 
-	decl : FUN REC ID args TWO_POINTS plctype EQUAL . exp 
+	atomic_expr : LPARENT comps RPARENT .  (reduce by rule 32)
 
-	ID	shift 14
-	NUM	shift 13
-	TRUE	shift 12
-	FALSE	shift 11
-	LPARENT	shift 10
-	FN	shift 7
-	PRINT	shift 6
-	LBRA	shift 5
+	ID	reduce by rule 32
+	NUM	reduce by rule 32
+	PLUS	reduce by rule 32
+	DIV	reduce by rule 32
+	SUB	reduce by rule 32
+	TIMES	reduce by rule 32
+	EQUAL	reduce by rule 32
+	TRUE	reduce by rule 32
+	FALSE	reduce by rule 32
+	SEMI	reduce by rule 32
+	EOF	reduce by rule 32
+	LSQBRA	reduce by rule 32
+	LPARENT	reduce by rule 32
+	RPARENT	reduce by rule 32
+	FN	reduce by rule 32
+	ELSE	reduce by rule 32
+	THEN	reduce by rule 32
+	WITCH	reduce by rule 32
+	DTWO_POINTS	reduce by rule 32
+	COMMA	reduce by rule 32
+	END	reduce by rule 32
+	SARROW	reduce by rule 32
+	LESS	reduce by rule 32
+	LBRA	reduce by rule 32
+	RBRA	reduce by rule 32
+	AND	reduce by rule 32
+	LESSEQ	reduce by rule 32
+	DIFF	reduce by rule 32
+	PIPE	reduce by rule 32
 
-	exp	goto 89
-	atomic_expr	goto 3
-	const_exp	goto 2
 
 	.	error
 
 
 state 89:
 
-	exp : exp . PLUS exp 
-	exp : exp . SUB exp 
-	exp : exp . TIMES exp 
-	exp : exp . DIV exp 
-	exp : exp . SEMI exp 
-	exp : exp . LSQBRA NUM RSQBRA 
-	decl : FUN REC ID args TWO_POINTS plctype EQUAL exp .  (reduce by rule 4)
+	plctype : plctype SARROW . plctype 
 
-	PLUS	shift 21
-	DIV	shift 20
-	SUB	shift 19
-	TIMES	shift 18
-	SEMI	reduce by rule 4
-	LSQBRA	shift 16
+	LSQBRA	shift 61
+	LPARENT	shift 84
+	BOOL	shift 58
+	INT	shift 57
+	NIL	shift 56
 
+	atomic_type	goto 54
+	plctype	goto 109
 
 	.	error
 
 
 state 90:
+
+	const_exp : LPARENT plctype LSQBRA . RSQBRA RPARENT 
+
+	RSQBRA	shift 110
+
+
+	.	error
+
+
+state 91:
+
+	comps : exp COMMA . exp 
+	comps : exp COMMA . comps 
+
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
+
+	exp	goto 112
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+	comps	goto 111
+
+	.	error
+
+
+state 92:
+
+	atomic_expr : LPARENT exp RPARENT .  (reduce by rule 31)
+
+	ID	reduce by rule 31
+	NUM	reduce by rule 31
+	PLUS	reduce by rule 31
+	DIV	reduce by rule 31
+	SUB	reduce by rule 31
+	TIMES	reduce by rule 31
+	EQUAL	reduce by rule 31
+	TRUE	reduce by rule 31
+	FALSE	reduce by rule 31
+	SEMI	reduce by rule 31
+	EOF	reduce by rule 31
+	LSQBRA	reduce by rule 31
+	LPARENT	reduce by rule 31
+	RPARENT	reduce by rule 31
+	FN	reduce by rule 31
+	ELSE	reduce by rule 31
+	THEN	reduce by rule 31
+	WITCH	reduce by rule 31
+	DTWO_POINTS	reduce by rule 31
+	COMMA	reduce by rule 31
+	END	reduce by rule 31
+	SARROW	reduce by rule 31
+	LESS	reduce by rule 31
+	LBRA	reduce by rule 31
+	RBRA	reduce by rule 31
+	AND	reduce by rule 31
+	LESSEQ	reduce by rule 31
+	DIFF	reduce by rule 31
+	PIPE	reduce by rule 31
+
+
+	.	error
+
+
+state 93:
+
+	plctype : LPARENT plctypes . RPARENT 
+
+	RPARENT	shift 113
+
+
+	.	error
+
+
+state 94:
+
+	const_exp : LPARENT plctype . LSQBRA RSQBRA RPARENT 
+	plctype : plctype . SARROW plctype 
+	plctypes : plctype . COMMA plctype 
+	plctypes : plctype . COMMA plctypes 
+
+	LSQBRA	shift 90
+	COMMA	shift 114
+	SARROW	shift 89
+
+
+	.	error
+
+
+state 95:
+
+	plctype : plctype . SARROW plctype 
+	plctype : LSQBRA plctype . RSQBRA 
+
+	RSQBRA	shift 115
+	SARROW	shift 89
+
+
+	.	error
+
+
+state 96:
+
+	exp : exp LSQBRA NUM RSQBRA .  (reduce by rule 27)
+
+	PLUS	reduce by rule 27
+	DIV	reduce by rule 27
+	SUB	reduce by rule 27
+	TIMES	reduce by rule 27
+	EQUAL	reduce by rule 27
+	SEMI	reduce by rule 27
+	EOF	reduce by rule 27
+	LSQBRA	reduce by rule 27
+	RPARENT	reduce by rule 27
+	ELSE	reduce by rule 27
+	THEN	reduce by rule 27
+	WITCH	reduce by rule 27
+	DTWO_POINTS	reduce by rule 27
+	COMMA	reduce by rule 27
+	END	reduce by rule 27
+	SARROW	reduce by rule 27
+	LESS	reduce by rule 27
+	RBRA	reduce by rule 27
+	AND	reduce by rule 27
+	LESSEQ	reduce by rule 27
+	DIFF	reduce by rule 27
+	PIPE	reduce by rule 27
+
+
+	.	error
+
+
+state 97:
+
+	exp : MATCH exp WITCH matchexp .  (reduce by rule 9)
+
+	PLUS	reduce by rule 9
+	DIV	reduce by rule 9
+	SUB	reduce by rule 9
+	TIMES	reduce by rule 9
+	EQUAL	reduce by rule 9
+	SEMI	reduce by rule 9
+	EOF	reduce by rule 9
+	LSQBRA	reduce by rule 9
+	RPARENT	reduce by rule 9
+	ELSE	reduce by rule 9
+	THEN	reduce by rule 9
+	WITCH	reduce by rule 9
+	DTWO_POINTS	reduce by rule 9
+	COMMA	reduce by rule 9
+	END	reduce by rule 9
+	SARROW	reduce by rule 9
+	LESS	reduce by rule 9
+	RBRA	reduce by rule 9
+	AND	reduce by rule 9
+	LESSEQ	reduce by rule 9
+	DIFF	reduce by rule 9
+	PIPE	reduce by rule 9
+
+
+	.	error
+
+
+state 98:
+
+	matchexp : PIPE . cond_exp SARROW exp matchexp 
+
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	UNDERSCORE	shift 118
+	LBRA	shift 8
+	NOT	shift 7
+
+	exp	goto 117
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+	cond_exp	goto 116
+
+	.	error
+
+
+state 99:
+
+	matchexp : END .  (reduce by rule 43)
+
+	PLUS	reduce by rule 43
+	DIV	reduce by rule 43
+	SUB	reduce by rule 43
+	TIMES	reduce by rule 43
+	EQUAL	reduce by rule 43
+	SEMI	reduce by rule 43
+	EOF	reduce by rule 43
+	LSQBRA	reduce by rule 43
+	RPARENT	reduce by rule 43
+	ELSE	reduce by rule 43
+	THEN	reduce by rule 43
+	WITCH	reduce by rule 43
+	DTWO_POINTS	reduce by rule 43
+	COMMA	reduce by rule 43
+	END	reduce by rule 43
+	SARROW	reduce by rule 43
+	LESS	reduce by rule 43
+	RBRA	reduce by rule 43
+	AND	reduce by rule 43
+	LESSEQ	reduce by rule 43
+	DIFF	reduce by rule 43
+	PIPE	reduce by rule 43
+
+
+	.	error
+
+
+state 100:
+
+	exp : IF exp THEN exp . ELSE exp 
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	LSQBRA	shift 32
+	ELSE	shift 119
+	DTWO_POINTS	shift 31
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+
+
+	.	error
+
+
+state 101:
+
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+	atomic_expr : FN args DARROW exp . END 
+
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	LSQBRA	shift 32
+	DTWO_POINTS	shift 31
+	END	shift 120
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+
+
+	.	error
+
+
+state 102:
+
+	args : LPARENT params RPARENT .  (reduce by rule 48)
+
+	EQUAL	reduce by rule 48
+	TWO_POINTS	reduce by rule 48
+	DARROW	reduce by rule 48
+
+
+	.	error
+
+
+state 103:
+
+	typed_var : plctype ID .  (reduce by rule 51)
+
+	RPARENT	reduce by rule 51
+	COMMA	reduce by rule 51
+
+
+	.	error
+
+
+state 104:
+
+	params : typed_var COMMA . params 
+
+	LSQBRA	shift 61
+	LPARENT	shift 84
+	BOOL	shift 58
+	INT	shift 57
+	NIL	shift 56
+
+	atomic_type	goto 54
+	typed_var	goto 82
+	plctype	goto 81
+	params	goto 121
+
+	.	error
+
+
+state 105:
+
+	plctype : plctype . SARROW plctype 
+	plctypes : plctype . COMMA plctype 
+	plctypes : plctype . COMMA plctypes 
+
+	COMMA	shift 114
+	SARROW	shift 89
+
+
+	.	error
+
+
+state 106:
+
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+	decl : VAR ID EQUAL exp .  (reduce by rule 3)
+
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	reduce by rule 3
+	LSQBRA	shift 32
+	DTWO_POINTS	shift 31
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+
+
+	.	error
+
+
+state 107:
+
+	decl : FUN REC ID args . TWO_POINTS plctype EQUAL exp 
+
+	TWO_POINTS	shift 122
+
+
+	.	error
+
+
+state 108:
+
+	decl : FUN ID args EQUAL . exp 
+
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
+
+	exp	goto 123
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+
+	.	error
+
+
+state 109:
+
+	plctype : plctype . SARROW plctype 
+	plctype : plctype SARROW plctype .  (reduce by rule 54)
+
+	ID	reduce by rule 54
+	EQUAL	reduce by rule 54
+	LSQBRA	reduce by rule 54
+	RSQBRA	reduce by rule 54
+	RPARENT	reduce by rule 54
+	COMMA	reduce by rule 54
+	SARROW	shift 89
+
+
+	.	error
+
+
+state 110:
+
+	const_exp : LPARENT plctype LSQBRA RSQBRA . RPARENT 
+
+	RPARENT	shift 124
+
+
+	.	error
+
+
+state 111:
+
+	comps : exp COMMA comps .  (reduce by rule 42)
+
+	RPARENT	reduce by rule 42
+
+
+	.	error
+
+
+state 112:
+
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+	comps : exp . COMMA exp 
+	comps : exp COMMA exp .  (reduce by rule 41)
+	comps : exp . COMMA comps 
+
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 41
+	DTWO_POINTS	shift 31
+	COMMA	shift 91
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+
+
+	.	error
+
+
+state 113:
+
+	plctype : LPARENT plctypes RPARENT .  (reduce by rule 53)
+
+	ID	reduce by rule 53
+	EQUAL	reduce by rule 53
+	LSQBRA	reduce by rule 53
+	RSQBRA	reduce by rule 53
+	RPARENT	reduce by rule 53
+	COMMA	reduce by rule 53
+	SARROW	reduce by rule 53
+
+
+	.	error
+
+
+state 114:
+
+	plctypes : plctype COMMA . plctype 
+	plctypes : plctype COMMA . plctypes 
+
+	LSQBRA	shift 61
+	LPARENT	shift 84
+	BOOL	shift 58
+	INT	shift 57
+	NIL	shift 56
+
+	atomic_type	goto 54
+	plctype	goto 126
+	plctypes	goto 125
+
+	.	error
+
+
+state 115:
+
+	plctype : LSQBRA plctype RSQBRA .  (reduce by rule 55)
+
+	ID	reduce by rule 55
+	EQUAL	reduce by rule 55
+	LSQBRA	reduce by rule 55
+	RSQBRA	reduce by rule 55
+	RPARENT	reduce by rule 55
+	COMMA	reduce by rule 55
+	SARROW	reduce by rule 55
+
+
+	.	error
+
+
+state 116:
+
+	matchexp : PIPE cond_exp . SARROW exp matchexp 
+
+	SARROW	shift 127
+
+
+	.	error
+
+
+state 117:
+
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+	cond_exp : exp .  (reduce by rule 45)
+
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	LSQBRA	shift 32
+	DTWO_POINTS	shift 31
+	SARROW	reduce by rule 45
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+
+
+	.	error
+
+
+state 118:
+
+	cond_exp : UNDERSCORE .  (reduce by rule 46)
+
+	SARROW	reduce by rule 46
+
+
+	.	error
+
+
+state 119:
+
+	exp : IF exp THEN exp ELSE . exp 
+
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
+
+	exp	goto 128
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+
+	.	error
+
+
+state 120:
+
+	atomic_expr : FN args DARROW exp END .  (reduce by rule 33)
+
+	ID	reduce by rule 33
+	NUM	reduce by rule 33
+	PLUS	reduce by rule 33
+	DIV	reduce by rule 33
+	SUB	reduce by rule 33
+	TIMES	reduce by rule 33
+	EQUAL	reduce by rule 33
+	TRUE	reduce by rule 33
+	FALSE	reduce by rule 33
+	SEMI	reduce by rule 33
+	EOF	reduce by rule 33
+	LSQBRA	reduce by rule 33
+	LPARENT	reduce by rule 33
+	RPARENT	reduce by rule 33
+	FN	reduce by rule 33
+	ELSE	reduce by rule 33
+	THEN	reduce by rule 33
+	WITCH	reduce by rule 33
+	DTWO_POINTS	reduce by rule 33
+	COMMA	reduce by rule 33
+	END	reduce by rule 33
+	SARROW	reduce by rule 33
+	LESS	reduce by rule 33
+	LBRA	reduce by rule 33
+	RBRA	reduce by rule 33
+	AND	reduce by rule 33
+	LESSEQ	reduce by rule 33
+	DIFF	reduce by rule 33
+	PIPE	reduce by rule 33
+
+
+	.	error
+
+
+state 121:
+
+	params : typed_var COMMA params .  (reduce by rule 50)
+
+	RPARENT	reduce by rule 50
+
+
+	.	error
+
+
+state 122:
+
+	decl : FUN REC ID args TWO_POINTS . plctype EQUAL exp 
+
+	LSQBRA	shift 61
+	LPARENT	shift 84
+	BOOL	shift 58
+	INT	shift 57
+	NIL	shift 56
+
+	atomic_type	goto 54
+	plctype	goto 129
+
+	.	error
+
+
+state 123:
+
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+	decl : FUN ID args EQUAL exp .  (reduce by rule 4)
+
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	reduce by rule 4
+	LSQBRA	shift 32
+	DTWO_POINTS	shift 31
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+
+
+	.	error
+
+
+state 124:
+
+	const_exp : LPARENT plctype LSQBRA RSQBRA RPARENT .  (reduce by rule 40)
+
+	ID	reduce by rule 40
+	NUM	reduce by rule 40
+	PLUS	reduce by rule 40
+	DIV	reduce by rule 40
+	SUB	reduce by rule 40
+	TIMES	reduce by rule 40
+	EQUAL	reduce by rule 40
+	TRUE	reduce by rule 40
+	FALSE	reduce by rule 40
+	SEMI	reduce by rule 40
+	EOF	reduce by rule 40
+	LSQBRA	reduce by rule 40
+	LPARENT	reduce by rule 40
+	RPARENT	reduce by rule 40
+	FN	reduce by rule 40
+	ELSE	reduce by rule 40
+	THEN	reduce by rule 40
+	WITCH	reduce by rule 40
+	DTWO_POINTS	reduce by rule 40
+	COMMA	reduce by rule 40
+	END	reduce by rule 40
+	SARROW	reduce by rule 40
+	LESS	reduce by rule 40
+	LBRA	reduce by rule 40
+	RBRA	reduce by rule 40
+	AND	reduce by rule 40
+	LESSEQ	reduce by rule 40
+	DIFF	reduce by rule 40
+	PIPE	reduce by rule 40
+
+
+	.	error
+
+
+state 125:
+
+	plctypes : plctype COMMA plctypes .  (reduce by rule 60)
+
+	RPARENT	reduce by rule 60
+
+
+	.	error
+
+
+state 126:
+
+	plctype : plctype . SARROW plctype 
+	plctypes : plctype . COMMA plctype 
+	plctypes : plctype COMMA plctype .  (reduce by rule 59)
+	plctypes : plctype . COMMA plctypes 
+
+	RPARENT	reduce by rule 59
+	COMMA	shift 114
+	SARROW	shift 89
+
+
+	.	error
+
+
+state 127:
+
+	matchexp : PIPE cond_exp SARROW . exp matchexp 
+
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
+
+	exp	goto 130
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+
+	.	error
+
+
+state 128:
+
+	exp : IF exp THEN exp ELSE exp .  (reduce by rule 8)
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	reduce by rule 8
+	EOF	reduce by rule 8
+	LSQBRA	shift 32
+	RPARENT	reduce by rule 8
+	ELSE	reduce by rule 8
+	THEN	reduce by rule 8
+	WITCH	reduce by rule 8
+	DTWO_POINTS	shift 31
+	COMMA	reduce by rule 8
+	END	reduce by rule 8
+	SARROW	reduce by rule 8
+	LESS	shift 30
+	RBRA	reduce by rule 8
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+	PIPE	reduce by rule 8
+
+
+	.	error
+
+
+state 129:
+
+	decl : FUN REC ID args TWO_POINTS plctype . EQUAL exp 
+	plctype : plctype . SARROW plctype 
+
+	EQUAL	shift 131
+	SARROW	shift 89
+
+
+	.	error
+
+
+state 130:
+
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+	matchexp : PIPE cond_exp SARROW exp . matchexp 
+
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	shift 33
+	LSQBRA	shift 32
+	DTWO_POINTS	shift 31
+	END	shift 99
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+	PIPE	shift 98
+
+	matchexp	goto 132
+
+	.	error
+
+
+state 131:
+
+	decl : FUN REC ID args TWO_POINTS plctype EQUAL . exp 
+
+	ID	shift 23
+	NUM	shift 22
+	SUB	shift 21
+	TRUE	shift 20
+	FALSE	shift 19
+	LPARENT	shift 18
+	FN	shift 15
+	IF	shift 14
+	HD	shift 13
+	ISE	shift 12
+	MATCH	shift 11
+	PRINT	shift 10
+	TL	shift 9
+	LBRA	shift 8
+	NOT	shift 7
+
+	exp	goto 133
+	atomic_expr	goto 4
+	const_exp	goto 3
+	app_exp	goto 2
+
+	.	error
+
+
+state 132:
+
+	matchexp : PIPE cond_exp SARROW exp matchexp .  (reduce by rule 44)
+
+	PLUS	reduce by rule 44
+	DIV	reduce by rule 44
+	SUB	reduce by rule 44
+	TIMES	reduce by rule 44
+	EQUAL	reduce by rule 44
+	SEMI	reduce by rule 44
+	EOF	reduce by rule 44
+	LSQBRA	reduce by rule 44
+	RPARENT	reduce by rule 44
+	ELSE	reduce by rule 44
+	THEN	reduce by rule 44
+	WITCH	reduce by rule 44
+	DTWO_POINTS	reduce by rule 44
+	COMMA	reduce by rule 44
+	END	reduce by rule 44
+	SARROW	reduce by rule 44
+	LESS	reduce by rule 44
+	RBRA	reduce by rule 44
+	AND	reduce by rule 44
+	LESSEQ	reduce by rule 44
+	DIFF	reduce by rule 44
+	PIPE	reduce by rule 44
+
+
+	.	error
+
+
+state 133:
+
+	exp : exp . AND exp 
+	exp : exp . PLUS exp 
+	exp : exp . SUB exp 
+	exp : exp . TIMES exp 
+	exp : exp . DIV exp 
+	exp : exp . EQUAL exp 
+	exp : exp . DIFF exp 
+	exp : exp . LESSEQ exp 
+	exp : exp . LESS exp 
+	exp : exp . DTWO_POINTS exp 
+	exp : exp . SEMI exp 
+	exp : exp . LSQBRA NUM RSQBRA 
+	decl : FUN REC ID args TWO_POINTS plctype EQUAL exp .  (reduce by rule 5)
+
+	PLUS	shift 38
+	DIV	shift 37
+	SUB	shift 36
+	TIMES	shift 35
+	EQUAL	shift 34
+	SEMI	reduce by rule 5
+	LSQBRA	shift 32
+	DTWO_POINTS	shift 31
+	LESS	shift 30
+	AND	shift 29
+	LESSEQ	shift 28
+	DIFF	shift 27
+
+
+	.	error
+
+
+state 134:
 
 
 	EOF	accept
@@ -1578,5 +3510,5 @@ state 90:
 
 	.	error
 
-399 of 630 action table entries left after compaction
-85 goto table entries
+1259 of 1865 action table entries left after compaction
+177 goto table entries

@@ -53,22 +53,37 @@ fun parserLog(msg) = TextIO.output(TextIO.stdOut, msg ^ "\n")
     | DTWO_POINTS
 		| COMMA
     | END
-    | GREATER
     | SARROW
     | DARROW
     | LESS
     | LBRA
     | RBRA
-  
-%right SEMI SARROW DARROW
-%left ELSE EQUAL PLUS SUB TIMES DIV LSQBRA
+    | AND
+    | LESSEQ
+    | NOT
+    | DIFF
+    | PIPE
 
-%nonassoc HD TL ISE PRINT ID
+%right SEMI SARROW
+%left ELSE
+%left AND
+%left EQUAL DIFF
+%left LESS LESSEQ
+%right DTWO_POINTS
+%left PLUS SUB
+%left TIMES DIV
+
+%nonassoc NOT HD TL ISE PRINT ID
+%left LSQBRA
 
 %nonterm prog 					of expr
+        | statement     of expr
         | exp 					of expr
         | atomic_expr 	of expr
 				| const_exp 		of expr
+        | app_exp       of expr
+				| matchexp 		  of (expr option * expr) list
+				| cond_exp 		  of expr option
 				| decl 					of declaration
         | atomic_type   of plcType
         | typed_var     of plcType * string
@@ -88,42 +103,62 @@ fun parserLog(msg) = TextIO.output(TextIO.stdOut, msg ^ "\n")
 
 %%
 
-prog 				: exp											 								            (exp) 
-						| decl SEMI	prog                  	                  (resolve (decl, prog))
+prog 				: statement                                           (statement)
+
+statement   : exp                                                 (exp)
+            | decl SEMI	statement                  	              (resolve (decl, statement))
 
 decl        : VAR ID EQUAL exp                                    (Variable(ID, exp))
             | FUN ID args EQUAL exp                               (Function(ID, makeAnon(args, exp)))
             | FUN REC ID args TWO_POINTS plctype EQUAL exp        (RecursiveFunction(ID, args, plctype, exp))
 
 exp 				: atomic_expr                                         (atomic_expr)
+            | app_exp                                             (app_exp)
+						| IF exp THEN exp ELSE exp                            (If(exp1, exp2, exp3))
+						| MATCH exp WITCH matchexp                            (Match(exp, matchexp))
+						| NOT exp                                             (Prim1("!", exp))
+						| SUB exp                                             (Prim1("-", exp))
+						| HD exp                                              (Prim1("hd", exp))
+						| TL exp                                              (Prim1("tl", exp))
+						| ISE exp                                             (Prim1("ise", exp))
+            | PRINT exp                                           (Prim1("print", exp))
+            | exp AND exp                                         (Prim2("&&", exp1, exp2))
 						| exp PLUS exp                                        (Prim2("+", exp1, exp2))
 						| exp SUB exp    													            (Prim2("-", exp1, exp2))
 						| exp TIMES exp  													            (Prim2("*", exp1, exp2))
 						| exp DIV exp    													            (Prim2("/", exp1, exp2))
-            | PRINT exp                                           (Prim1("print", exp))
+						| exp EQUAL exp    													          (Prim2("=", exp1, exp2))
+						| exp DIFF exp    													          (Prim2("!=", exp1, exp2))
+						| exp LESSEQ exp    													        (Prim2("<=", exp1, exp2))
+						| exp LESS exp    													          (Prim2("<", exp1, exp2))
+						| exp DTWO_POINTS exp    													    (Prim2("::", exp1, exp2))
             | exp SEMI exp                                        (Prim2(";", exp1, exp2))
             | exp LSQBRA NUM RSQBRA                               (Item(NUM, exp))
-          
+
+atomic_expr : const_exp           										            (const_exp)
+            | ID       																            (Var(ID))
+            | LBRA statement RBRA                                 (statement)
+            | LPARENT exp RPARENT 										            (exp)
+            | LPARENT comps RPARENT                               (List comps)
+            | FN args DARROW exp END                              (makeAnon(args, exp))
+
+app_exp     : atomic_expr atomic_expr                             (Call(atomic_expr1, atomic_expr2))
+            | app_exp atomic_expr                                 (Call(atomic_expr, atomic_expr))
+
 const_exp 	: NUM       															            (ConI(NUM))
           	| TRUE      															            (ConB(true))
           	| FALSE     															            (ConB(false))
-					 	| ID       																            (Var(ID))
             | LPARENT RPARENT                                     (List [])
             | LPARENT plctype LSQBRA RSQBRA RPARENT               (ESeq plctype)
 
 comps       : exp COMMA exp                                       ([exp1, exp2])
             | exp COMMA comps                                     ([exp] @ comps)
           
-atomic_expr : const_exp           										            (const_exp)
-            | ID                                                  (Var ID)
-            | LBRA prog RBRA                                      (prog)
-            | LPARENT exp RPARENT 										            (exp)
-            | LPARENT comps RPARENT                               (List comps)
-            | FN args DARROW exp END                              (makeAnon(args, exp))
+matchexp    : END                                                 ([])
+            | PIPE cond_exp SARROW exp matchexp                   ([(cond_exp, exp)] @ matchexp)
 
-atomic_type	:	NIL  																		            (ListT [])
-						| INT																			            (IntT)
-						| BOOL																		            (BoolT)
+cond_exp    : exp                                                 (SOME exp)
+            | UNDERSCORE                                          (NONE)
 
 args        : LPARENT RPARENT                                     ([])
             | LPARENT params RPARENT                              (params)
@@ -131,12 +166,17 @@ args        : LPARENT RPARENT                                     ([])
 params      : typed_var                                           ([typed_var]) 
             | typed_var COMMA params                              ([typed_var] @ params)
 
-plctypes    : plctype COMMA plctype                               ([plctype1, plctype2])
-            | plctype COMMA plctypes                              ([plctype1] @ plctypes)
+typed_var   : plctype ID                                          ((plctype, ID))
 
 plctype     : atomic_type                                         (atomic_type)
             | LPARENT plctypes RPARENT                            (ListT(plctypes))
             | plctype SARROW plctype                              (FunT(plctype1, plctype2))
             | LSQBRA plctype RSQBRA                               (SeqT(plctype))
 
-typed_var   : plctype ID                                          ((plctype, ID))
+atomic_type	:	NIL  																		            (ListT [])
+						| INT																			            (IntT)
+						| BOOL																		            (BoolT)
+
+plctypes    : plctype COMMA plctype                               ([plctype1, plctype2])
+            | plctype COMMA plctypes                              ([plctype1] @ plctypes)
+

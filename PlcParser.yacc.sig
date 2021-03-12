@@ -2,12 +2,16 @@ signature PlcParser_TOKENS =
 sig
 type ('a,'b) token
 type svalue
+val PIPE:  'a * 'a -> (svalue,'a) token
+val DIFF:  'a * 'a -> (svalue,'a) token
+val NOT:  'a * 'a -> (svalue,'a) token
+val LESSEQ:  'a * 'a -> (svalue,'a) token
+val AND:  'a * 'a -> (svalue,'a) token
 val RBRA:  'a * 'a -> (svalue,'a) token
 val LBRA:  'a * 'a -> (svalue,'a) token
 val LESS:  'a * 'a -> (svalue,'a) token
 val DARROW:  'a * 'a -> (svalue,'a) token
 val SARROW:  'a * 'a -> (svalue,'a) token
-val GREATER:  'a * 'a -> (svalue,'a) token
 val END:  'a * 'a -> (svalue,'a) token
 val COMMA:  'a * 'a -> (svalue,'a) token
 val DTWO_POINTS:  'a * 'a -> (svalue,'a) token

@@ -20,24 +20,21 @@ open PlcFrontEnd;
 
 fromString "15";
 fromString "true";
-<<<<<<< HEAD
-(*
-=======
 fromString "fun f(Int x) = x; 3";
->>>>>>> f6dfd7989a9219d21af649b3cabb964770cf6213
 fromString "()";
 fromString "(6,false)[1]";
 fromString "([Bool] [])";
 fromString "print x; true";
 
-(*
 fromString "3::7::t";
 fromString "fn (Int x) => -x end";
 fromString "var x = 9; x + 3";
 fromString "fun f(Int x) = x; f(1)";
 fromString "match x with | 0 -> 1| _ -> -1 end";
+
 fromFile ("example.plc");
 
+(*
 use "testParserCases.sml"
 *)
 

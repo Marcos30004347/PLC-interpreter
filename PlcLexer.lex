@@ -52,6 +52,7 @@ ws = [\ \t];
 "var"     => (lexLog(yypos, yytext); Tokens.VAR(yypos, yypos + size yytext));
 "fun"     => (lexLog(yypos, yytext); Tokens.FUN(yypos, yypos + size yytext));
 "fn"      => (lexLog(yypos, yytext); Tokens.FN(yypos, yypos + size yytext));
+"not"      => (lexLog(yypos, yytext); Tokens.NOT(yypos, yypos + size yytext));
 "Bool"    => (lexLog(yypos, yytext); Tokens.BOOL(yypos, yypos + size yytext));
 "Int"     => (lexLog(yypos, yytext); Tokens.INT(yypos, yypos + size yytext));
 "Nil"     => (lexLog(yypos, yytext); Tokens.NIL(yypos, yypos + size yytext));
@@ -76,14 +77,18 @@ ws = [\ \t];
 "{"       => (Tokens.LBRA(!pos, !pos));
 "}"       => (Tokens.RBRA(!pos, !pos));
 
+"|"       => (Tokens.PIPE(!pos,!pos));
+
 "+"       => (Tokens.PLUS(!pos,!pos));
+"&&"      => (Tokens.AND(!pos,!pos));
+"!="      => (Tokens.DIFF(!pos,!pos));
 "*"       => (Tokens.TIMES(!pos,!pos));
 "-"       => (Tokens.SUB(!pos,!pos));
 "/"       => (Tokens.DIV(!pos,!pos));
 "="       => (Tokens.EQUAL(!pos,!pos));
-">"       => (Tokens.GREATER(!pos,!pos));
+"<="      => (Tokens.LESSEQ(!pos,!pos));
 "<"       => (Tokens.LESS(!pos,!pos));
-"::"       => (Tokens.DTWO_POINTS(!pos,!pos));
+"::"      => (Tokens.DTWO_POINTS(!pos,!pos));
 ":"       => (Tokens.TWO_POINTS(!pos,!pos));
 
 "true"    => (lexLog(yypos, yytext); Tokens.TRUE(yypos, yypos+size yytext));
