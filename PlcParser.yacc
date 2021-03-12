@@ -7,6 +7,8 @@ fun resolve (decl, prog) =
                 | Function f           => Let (#1f, #2f, prog)
                 | RecursiveFunction fr => makeFun (#1fr, #2fr, #3fr, #4fr, prog)
 
+fun parserLog(msg) = TextIO.output(TextIO.stdOut, msg ^ "\n")
+
 
 
 %%
@@ -55,10 +57,13 @@ fun resolve (decl, prog) =
     | SARROW
     | DARROW
     | LESS
+    | LBRA
+    | RBRA
   
-%left PLUS SUB
-%left TIMES DIV
 %right SEMI SARROW DARROW
+%left ELSE EQUAL PLUS SUB TIMES DIV LSQBRA
+
+%nonassoc HD TL ISE PRINT ID
 
 %nonterm prog 					of expr
         | exp 					of expr
@@ -71,6 +76,7 @@ fun resolve (decl, prog) =
         | plctypes      of plcType list
         | args          of (plcType * string) list
         | params        of (plcType * string) list
+        | comps         of expr list
     
 %prefer PLUS TIMES DIV SUB
 
@@ -94,17 +100,28 @@ exp 				: atomic_expr                                         (atomic_expr)
 						| exp SUB exp    													            (Prim2("-", exp1, exp2))
 						| exp TIMES exp  													            (Prim2("*", exp1, exp2))
 						| exp DIV exp    													            (Prim2("/", exp1, exp2))
+            | PRINT exp                                           (Prim1("print", exp))
+            | exp SEMI exp                                        (Prim2(";", exp1, exp2))
+            | exp LSQBRA NUM RSQBRA                               (Item(NUM, exp))
           
 const_exp 	: NUM       															            (ConI(NUM))
           	| TRUE      															            (ConB(true))
           	| FALSE     															            (ConB(false))
 					 	| ID       																            (Var(ID))
+            | LPARENT RPARENT                                     (List [])
+            | LPARENT plctype LSQBRA RSQBRA RPARENT               (ESeq plctype)
+
+comps       : exp COMMA exp                                       ([exp1, exp2])
+            | exp COMMA comps                                     ([exp] @ comps)
           
 atomic_expr : const_exp           										            (const_exp)
+            | ID                                                  (Var ID)
+            | LBRA prog RBRA                                      (prog)
             | LPARENT exp RPARENT 										            (exp)
+            | LPARENT comps RPARENT                               (List comps)
             | FN args DARROW exp END                              (makeAnon(args, exp))
 
-atomic_type	:	NIL  																		            (ListT([]))
+atomic_type	:	NIL  																		            (ListT [])
 						| INT																			            (IntT)
 						| BOOL																		            (BoolT)
 

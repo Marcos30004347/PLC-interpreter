@@ -73,6 +73,8 @@ ws = [\ \t];
 "]"       => (Tokens.RSQBRA(!pos,!pos));
 ";"       => (Tokens.SEMI(!pos,!pos));
 ","       => (Tokens.COMMA(!pos,!pos));
+"{"       => (Tokens.LBRA(!pos, !pos));
+"}"       => (Tokens.RBRA(!pos, !pos));
 
 "+"       => (Tokens.PLUS(!pos,!pos));
 "*"       => (Tokens.TIMES(!pos,!pos));
