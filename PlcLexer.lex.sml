@@ -62,9 +62,9 @@ val s = [
 \\000"
 ),
  (1, 
-"\000\000\000\000\000\000\000\000\000\091\092\000\000\000\000\000\
+"\000\000\000\000\000\000\000\000\000\097\098\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\\091\089\000\000\000\000\087\000\086\085\084\083\082\080\000\079\
+\\097\095\000\000\000\000\093\000\086\085\084\083\082\080\000\079\
 \\078\078\078\078\078\078\078\078\078\078\076\075\073\071\000\000\
 \\000\006\067\006\006\006\006\006\006\064\006\006\006\006\061\006\
 \\006\006\006\006\006\006\006\006\006\006\006\060\000\059\000\058\
@@ -589,10 +589,10 @@ val s = [
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000"
 ),
- (87, 
+ (86, 
 "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\\000\000\000\000\000\000\088\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\087\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
@@ -600,11 +600,33 @@ val s = [
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000"
 ),
- (89, 
-"\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+ (87, 
+"\087\087\087\087\087\087\087\087\087\087\090\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\088\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087"
+),
+ (88, 
+"\087\087\087\087\087\087\087\087\087\087\090\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\089\088\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\087\
+\\087"
+),
+ (90, 
+"\000\000\000\000\000\000\000\000\000\000\090\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\091\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\\000\000\000\000\000\000\000\000\000\000\000\000\000\090\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
@@ -612,9 +634,42 @@ val s = [
 \\000"
 ),
  (91, 
-"\000\000\000\000\000\000\000\000\000\091\000\000\000\000\000\000\
+"\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\\091\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\092\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000"
+),
+ (93, 
+"\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\094\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000"
+),
+ (95, 
+"\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\096\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\000"
+),
+ (97, 
+"\000\000\000\000\000\000\000\000\000\097\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\097\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
@@ -633,96 +688,102 @@ in Vector.fromList(List.map g
 [{fin = [], trans = 0},
 {fin = [], trans = 1},
 {fin = [], trans = 1},
-{fin = [(N 104)], trans = 0},
-{fin = [(N 106)], trans = 0},
-{fin = [(N 102)], trans = 0},
-{fin = [(N 149)], trans = 6},
-{fin = [(N 149)], trans = 7},
-{fin = [(N 149)], trans = 8},
-{fin = [(N 149)], trans = 9},
-{fin = [(N 86),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 11},
-{fin = [(N 149)], trans = 12},
-{fin = [(N 18),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 14},
-{fin = [(N 149)], trans = 15},
-{fin = [(N 149)], trans = 16},
-{fin = [(N 137),(N 149)], trans = 6},
-{fin = [(N 81),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 19},
-{fin = [(N 149)], trans = 20},
-{fin = [(N 78),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 22},
-{fin = [(N 149)], trans = 23},
-{fin = [(N 73),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 25},
-{fin = [(N 149)], trans = 26},
-{fin = [(N 149)], trans = 27},
-{fin = [(N 149)], trans = 28},
-{fin = [(N 69),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 30},
-{fin = [(N 149)], trans = 31},
-{fin = [(N 29),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 33},
-{fin = [(N 149)], trans = 34},
-{fin = [(N 149)], trans = 35},
-{fin = [(N 149)], trans = 36},
-{fin = [(N 63),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 38},
-{fin = [(N 149)], trans = 39},
-{fin = [(N 57),(N 149)], trans = 6},
-{fin = [(N 50),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 42},
-{fin = [(N 53),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 44},
-{fin = [(N 149)], trans = 45},
-{fin = [(N 22),(N 149)], trans = 6},
-{fin = [(N 25),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 48},
-{fin = [(N 149)], trans = 49},
-{fin = [(N 149)], trans = 50},
-{fin = [(N 143),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 52},
-{fin = [(N 149)], trans = 53},
-{fin = [(N 14),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 55},
-{fin = [(N 149)], trans = 56},
-{fin = [(N 47),(N 149)], trans = 6},
-{fin = [(N 88)], trans = 0},
-{fin = [(N 96)], trans = 0},
-{fin = [(N 94)], trans = 0},
-{fin = [(N 149)], trans = 61},
-{fin = [(N 149)], trans = 62},
-{fin = [(N 42),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 64},
-{fin = [(N 149)], trans = 65},
-{fin = [(N 38),(N 149)], trans = 6},
-{fin = [(N 149)], trans = 67},
-{fin = [(N 149)], trans = 68},
-{fin = [(N 149)], trans = 69},
-{fin = [(N 34),(N 149)], trans = 6},
-{fin = [(N 122)], trans = 71},
-{fin = [(N 10)], trans = 0},
-{fin = [(N 127)], trans = 73},
-{fin = [(N 125)], trans = 0},
-{fin = [(N 98)], trans = 0},
-{fin = [(N 132)], trans = 76},
-{fin = [(N 130)], trans = 0},
-{fin = [(N 146)], trans = 78},
-{fin = [(N 120)], trans = 0},
-{fin = [(N 118)], trans = 80},
-{fin = [(N 7)], trans = 0},
-{fin = [(N 100)], trans = 0},
-{fin = [(N 108)], trans = 0},
-{fin = [(N 116)], trans = 0},
-{fin = [(N 92)], trans = 0},
-{fin = [(N 90)], trans = 0},
-{fin = [], trans = 87},
 {fin = [(N 111)], trans = 0},
-{fin = [], trans = 89},
-{fin = [(N 114)], trans = 0},
-{fin = [(N 2)], trans = 91},
-{fin = [(N 4)], trans = 0}])
+{fin = [(N 113)], trans = 0},
+{fin = [(N 109)], trans = 0},
+{fin = [(N 156)], trans = 6},
+{fin = [(N 156)], trans = 7},
+{fin = [(N 156)], trans = 8},
+{fin = [(N 156)], trans = 9},
+{fin = [(N 93),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 11},
+{fin = [(N 156)], trans = 12},
+{fin = [(N 25),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 14},
+{fin = [(N 156)], trans = 15},
+{fin = [(N 156)], trans = 16},
+{fin = [(N 144),(N 156)], trans = 6},
+{fin = [(N 88),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 19},
+{fin = [(N 156)], trans = 20},
+{fin = [(N 85),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 22},
+{fin = [(N 156)], trans = 23},
+{fin = [(N 80),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 25},
+{fin = [(N 156)], trans = 26},
+{fin = [(N 156)], trans = 27},
+{fin = [(N 156)], trans = 28},
+{fin = [(N 76),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 30},
+{fin = [(N 156)], trans = 31},
+{fin = [(N 36),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 33},
+{fin = [(N 156)], trans = 34},
+{fin = [(N 156)], trans = 35},
+{fin = [(N 156)], trans = 36},
+{fin = [(N 70),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 38},
+{fin = [(N 156)], trans = 39},
+{fin = [(N 64),(N 156)], trans = 6},
+{fin = [(N 57),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 42},
+{fin = [(N 60),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 44},
+{fin = [(N 156)], trans = 45},
+{fin = [(N 29),(N 156)], trans = 6},
+{fin = [(N 32),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 48},
+{fin = [(N 156)], trans = 49},
+{fin = [(N 156)], trans = 50},
+{fin = [(N 150),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 52},
+{fin = [(N 156)], trans = 53},
+{fin = [(N 21),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 55},
+{fin = [(N 156)], trans = 56},
+{fin = [(N 54),(N 156)], trans = 6},
+{fin = [(N 95)], trans = 0},
+{fin = [(N 103)], trans = 0},
+{fin = [(N 101)], trans = 0},
+{fin = [(N 156)], trans = 61},
+{fin = [(N 156)], trans = 62},
+{fin = [(N 49),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 64},
+{fin = [(N 156)], trans = 65},
+{fin = [(N 45),(N 156)], trans = 6},
+{fin = [(N 156)], trans = 67},
+{fin = [(N 156)], trans = 68},
+{fin = [(N 156)], trans = 69},
+{fin = [(N 41),(N 156)], trans = 6},
+{fin = [(N 129)], trans = 71},
+{fin = [(N 17)], trans = 0},
+{fin = [(N 134)], trans = 73},
+{fin = [(N 132)], trans = 0},
+{fin = [(N 105)], trans = 0},
+{fin = [(N 139)], trans = 76},
+{fin = [(N 137)], trans = 0},
+{fin = [(N 153)], trans = 78},
+{fin = [(N 127)], trans = 0},
+{fin = [(N 125)], trans = 80},
+{fin = [(N 14)], trans = 0},
+{fin = [(N 107)], trans = 0},
+{fin = [(N 115)], trans = 0},
+{fin = [(N 123)], trans = 0},
+{fin = [(N 99)], trans = 0},
+{fin = [(N 97)], trans = 86},
+{fin = [], trans = 87},
+{fin = [], trans = 88},
+{fin = [(N 9)], trans = 87},
+{fin = [], trans = 90},
+{fin = [], trans = 91},
+{fin = [(N 9)], trans = 0},
+{fin = [], trans = 93},
+{fin = [(N 118)], trans = 0},
+{fin = [], trans = 95},
+{fin = [(N 121)], trans = 0},
+{fin = [(N 2)], trans = 97},
+{fin = [(N 11)], trans = 0}])
 end
 structure StartStates =
 	struct
@@ -764,53 +825,54 @@ let fun continue() = lex() in
 
 			(* Application actions *)
 
-  10 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.DARROW(yypos, yypos + size yytext) end
-| 100 => (Tokens.COMMA(!pos,!pos))
-| 102 => (Tokens.LBRA(!pos, !pos))
-| 104 => (Tokens.RBRA(!pos, !pos))
-| 106 => (Tokens.PIPE(!pos,!pos))
-| 108 => (Tokens.PLUS(!pos,!pos))
-| 111 => (Tokens.AND(!pos,!pos))
-| 114 => (Tokens.DIFF(!pos,!pos))
-| 116 => (Tokens.TIMES(!pos,!pos))
-| 118 => (Tokens.SUB(!pos,!pos))
-| 120 => (Tokens.DIV(!pos,!pos))
-| 122 => (Tokens.EQUAL(!pos,!pos))
-| 125 => (Tokens.LESSEQ(!pos,!pos))
-| 127 => (Tokens.LESS(!pos,!pos))
-| 130 => (Tokens.DTWO_POINTS(!pos,!pos))
-| 132 => (Tokens.TWO_POINTS(!pos,!pos))
-| 137 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.TRUE(yypos, yypos+size yytext) end
-| 14 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.END(yypos, yypos + size yytext) end
-| 143 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.FALSE(yypos, yypos + size yytext) end
-| 146 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.NUM(revfold (fn (a,r) => ord(a)-ord(#"0")+10*r) (explode yytext) 0, !pos,!pos) end
-| 149 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.ID(yytext, yypos, yypos + size yytext) end
-| 18 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.VAR(yypos, yypos + size yytext) end
+  101 => (Tokens.LSQBRA(!pos,!pos))
+| 103 => (Tokens.RSQBRA(!pos,!pos))
+| 105 => (Tokens.SEMI(!pos,!pos))
+| 107 => (Tokens.COMMA(!pos,!pos))
+| 109 => (Tokens.LBRA(!pos, !pos))
+| 11 => (pos := (!pos) + 1; lex())
+| 111 => (Tokens.RBRA(!pos, !pos))
+| 113 => (Tokens.PIPE(!pos,!pos))
+| 115 => (Tokens.PLUS(!pos,!pos))
+| 118 => (Tokens.AND(!pos,!pos))
+| 121 => (Tokens.DIFF(!pos,!pos))
+| 123 => (Tokens.TIMES(!pos,!pos))
+| 125 => (Tokens.SUB(!pos,!pos))
+| 127 => (Tokens.DIV(!pos,!pos))
+| 129 => (Tokens.EQUAL(!pos,!pos))
+| 132 => (Tokens.LESSEQ(!pos,!pos))
+| 134 => (Tokens.LESS(!pos,!pos))
+| 137 => (Tokens.DTWO_POINTS(!pos,!pos))
+| 139 => (Tokens.TWO_POINTS(!pos,!pos))
+| 14 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.SARROW(yypos, yypos + size yytext) end
+| 144 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.TRUE(yypos, yypos+size yytext) end
+| 150 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.FALSE(yypos, yypos + size yytext) end
+| 153 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.NUM(revfold (fn (a,r) => ord(a)-ord(#"0")+10*r) (explode yytext) 0, !pos,!pos) end
+| 156 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.ID(yytext, yypos, yypos + size yytext) end
+| 17 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.DARROW(yypos, yypos + size yytext) end
 | 2 => (lex())
-| 22 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.FUN(yypos, yypos + size yytext) end
-| 25 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.FN(yypos, yypos + size yytext) end
-| 29 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.NOT(yypos, yypos + size yytext) end
-| 34 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.BOOL(yypos, yypos + size yytext) end
-| 38 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.INT(yypos, yypos + size yytext) end
-| 4 => (pos := (!pos) + 1; lex())
-| 42 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.NIL(yypos, yypos + size yytext) end
-| 47 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.ELSE(yypos, yypos + size yytext) end
-| 50 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.IF(yypos, yypos + size yytext) end
-| 53 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.HD(yypos, yypos + size yytext) end
-| 57 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.ISE(yypos, yypos + size yytext) end
-| 63 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.MATCH(yypos, yypos + size yytext) end
-| 69 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.PRINT(yypos, yypos + size yytext) end
-| 7 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.SARROW(yypos, yypos + size yytext) end
-| 73 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.REC(yypos, yypos + size yytext) end
-| 78 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.THEN(yypos, yypos + size yytext) end
-| 81 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.TL(yypos, yypos + size yytext) end
-| 86 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.WITCH(yypos, yypos + size yytext) end
-| 88 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.UNDERSCORE(yypos, yypos + size yytext) end
-| 90 => (Tokens.LPARENT(!pos,!pos))
-| 92 => (Tokens.RPARENT(!pos,!pos))
-| 94 => (Tokens.LSQBRA(!pos,!pos))
-| 96 => (Tokens.RSQBRA(!pos,!pos))
-| 98 => (Tokens.SEMI(!pos,!pos))
+| 21 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.END(yypos, yypos + size yytext) end
+| 25 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.VAR(yypos, yypos + size yytext) end
+| 29 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.FUN(yypos, yypos + size yytext) end
+| 32 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.FN(yypos, yypos + size yytext) end
+| 36 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.NOT(yypos, yypos + size yytext) end
+| 41 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.BOOL(yypos, yypos + size yytext) end
+| 45 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.INT(yypos, yypos + size yytext) end
+| 49 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.NIL(yypos, yypos + size yytext) end
+| 54 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.ELSE(yypos, yypos + size yytext) end
+| 57 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.IF(yypos, yypos + size yytext) end
+| 60 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.HD(yypos, yypos + size yytext) end
+| 64 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.ISE(yypos, yypos + size yytext) end
+| 70 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.MATCH(yypos, yypos + size yytext) end
+| 76 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.PRINT(yypos, yypos + size yytext) end
+| 80 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.REC(yypos, yypos + size yytext) end
+| 85 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.THEN(yypos, yypos + size yytext) end
+| 88 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.TL(yypos, yypos + size yytext) end
+| 9 => (lex())
+| 93 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.WITCH(yypos, yypos + size yytext) end
+| 95 => let val yytext=yymktext() in lexLog(yypos, yytext); Tokens.UNDERSCORE(yypos, yypos + size yytext) end
+| 97 => (Tokens.LPARENT(!pos,!pos))
+| 99 => (Tokens.RPARENT(!pos,!pos))
 | _ => raise Internal.LexerError
 
 		) end )

@@ -41,18 +41,19 @@ fun init() = ()
 alpha=[A-Za-z];
 digit=[0-9];
 ws = [\ \t];
+reg = (\(\*)(.*?)(\*\));
 %%
 
 {ws}+     => (lex());
+{reg}     => (lex());
 \n        => (pos := (!pos) + 1; lex());
-
 "->"      => (lexLog(yypos, yytext); Tokens.SARROW(yypos, yypos + size yytext));
 "=>"      => (lexLog(yypos, yytext); Tokens.DARROW(yypos, yypos + size yytext));
 "end"     => (lexLog(yypos, yytext); Tokens.END(yypos, yypos + size yytext));
 "var"     => (lexLog(yypos, yytext); Tokens.VAR(yypos, yypos + size yytext));
 "fun"     => (lexLog(yypos, yytext); Tokens.FUN(yypos, yypos + size yytext));
 "fn"      => (lexLog(yypos, yytext); Tokens.FN(yypos, yypos + size yytext));
-"not"      => (lexLog(yypos, yytext); Tokens.NOT(yypos, yypos + size yytext));
+"not"     => (lexLog(yypos, yytext); Tokens.NOT(yypos, yypos + size yytext));
 "Bool"    => (lexLog(yypos, yytext); Tokens.BOOL(yypos, yypos + size yytext));
 "Int"     => (lexLog(yypos, yytext); Tokens.INT(yypos, yypos + size yytext));
 "Nil"     => (lexLog(yypos, yytext); Tokens.NIL(yypos, yypos + size yytext));
