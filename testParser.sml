@@ -20,8 +20,6 @@ open PlcFrontEnd;
 
 fromString "15";
 fromString "true";
-fromString "fun f(Int x) = x; 3";
-
 (*
 fromString "()";
 fromString "(6,false)[1]";
@@ -35,7 +33,6 @@ fromString "match x with | 0 -> 1| _ -> -1 end";
 fromFile ("example.plc");
 
 use "testParserCases.sml"
-
 *)
 
 

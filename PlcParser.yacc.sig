@@ -8,6 +8,7 @@ val SARROW:  'a * 'a -> (svalue,'a) token
 val GREATER:  'a * 'a -> (svalue,'a) token
 val END:  'a * 'a -> (svalue,'a) token
 val COMMA:  'a * 'a -> (svalue,'a) token
+val DTWO_POINTS:  'a * 'a -> (svalue,'a) token
 val TWO_POINTS:  'a * 'a -> (svalue,'a) token
 val UNDERSCORE:  'a * 'a -> (svalue,'a) token
 val WITCH:  'a * 'a -> (svalue,'a) token

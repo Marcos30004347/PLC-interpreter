@@ -81,6 +81,7 @@ ws = [\ \t];
 "="       => (Tokens.EQUAL(!pos,!pos));
 ">"       => (Tokens.GREATER(!pos,!pos));
 "<"       => (Tokens.LESS(!pos,!pos));
+"::"       => (Tokens.DTWO_POINTS(!pos,!pos));
 ":"       => (Tokens.TWO_POINTS(!pos,!pos));
 
 "true"    => (lexLog(yypos, yytext); Tokens.TRUE(yypos, yypos+size yytext));

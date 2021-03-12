@@ -48,6 +48,7 @@ fun resolve (decl, prog) =
     | WITCH 
     | UNDERSCORE
 		| TWO_POINTS
+    | DTWO_POINTS
 		| COMMA
     | END
     | GREATER
