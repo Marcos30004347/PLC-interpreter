@@ -41,12 +41,12 @@ fun init() = ()
 alpha=[A-Za-z];
 digit=[0-9];
 ws = [\ \t];
-reg = (\(\*)(.*?)(\*\));
+reg = (\(\*)([\S\s]*?)(\*\));
 %%
 
 {ws}+     => (lex());
-{reg}     => (lex());
-\n        => (pos := (!pos) + 1; lex());
+{reg}     => (pos := (!pos) + 1; lex());
+\n        => (pos := (!pos) + size yytext; lex());
 "->"      => (lexLog(yypos, yytext); Tokens.SARROW(yypos, yypos + size yytext));
 "=>"      => (lexLog(yypos, yytext); Tokens.DARROW(yypos, yypos + size yytext));
 "end"     => (lexLog(yypos, yytext); Tokens.END(yypos, yypos + size yytext));
