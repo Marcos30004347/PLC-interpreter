@@ -2,3 +2,4 @@ PlcParser.yacc.desc
 PlcParser.yacc.sig
 PlcParser.yacc.sml
 PlcLexer.lex.sml
+dupla.txt
