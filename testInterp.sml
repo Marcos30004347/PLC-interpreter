@@ -1,6 +1,5 @@
 use "Plc.sml";
 
-
 eval (fromString "15") [];
 eval (fromString "true") [];
 eval (fromString "()") [];
@@ -13,9 +12,6 @@ eval (fromString "fun f(Int x) = 10-x; f(1)") [];
 eval (fromString "(x, y, z)[1]") [("x", IntV 5), ("y", IntV 10), ("z", IntV 15)];
 eval (fromString "(x, y, z)[2]") [("x", IntV 5), ("y", IntV 10), ("z", IntV 15)];
 eval (fromString "(x, y, z)[3]") [("x", IntV 5), ("y", IntV 10), ("z", IntV 15)];
-
-fromString "var func1 = fn (Int x) => 2*x end; var func2 = fn (Int x) => 3*x end; var funcList = (func1, func2); var myF = funcList[1]; myF(5)";
-
 eval (fromString "var func1 = fn (Int x) => 2*x end; var func2 = fn (Int x) => 3*x end; var funcList = (func1, func2); var myF = funcList[1]; myF(5)") [];
 eval (fromString "-5") [];
 eval (fromString "-x") [("x", IntV 8)];
