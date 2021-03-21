@@ -142,35 +142,35 @@ fun teval (e) (env:plcType env) =
     end
   | (Match(e1, l)) =>
     let
-      val initialCond = teval e1 env
-      val firstRes = (#2 (hd l))
-      val firstResType = teval firstRes env
-      fun searchMatch (Match(e1, l)) (env:plcType env) =
+      val cond = teval e1 env
+      val res = (#2 (hd l))
+      val res_type = teval res env
+      fun match (Match(e1, l)) (env:plcType env) =
           let in
             case l of
                 x::[] => let in
                     case x of
                         (SOME e2, e3) => 
-                          if (teval e3 env) = firstResType then
-                            if initialCond = (teval e2 env) then 
+                          if (teval e3 env) = res_type then
+                            if cond = (teval e2 env) then 
                               teval e3 env 
                             else raise MatchCondTypesDiff
                           else raise MatchResTypeDiff
-                      | (NONE, e3) => if (teval e3 env) = firstResType then firstResType else raise MatchResTypeDiff
+                      | (NONE, e3) => if (teval e3 env) = res_type then res_type else raise MatchResTypeDiff
                   end
               | x::xs => let in
                     case x of
                         (SOME e2, e3) => 
-                          if (teval e3 env) = firstResType then
-                            if initialCond = (teval e2 env) then
-                              searchMatch (Match(e1, xs)) env 
+                          if (teval e3 env) = res_type then
+                            if cond = (teval e2 env) then
+                              match (Match(e1, xs)) env 
                             else raise MatchCondTypesDiff
                           else raise MatchResTypeDiff
                       | _ => raise UnknownType
                   end
               | _ => raise NoMatchResults
           end
-        | searchMatch _ _ = raise UnknownType
+        | match _ _ = raise UnknownType
     in
-      searchMatch (Match(e1, l)) env
+      match (Match(e1, l)) env
     end
