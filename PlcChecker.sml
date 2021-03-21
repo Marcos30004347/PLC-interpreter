@@ -2,17 +2,17 @@
 
 exception EmptySeq
 exception UnknownType
-exception TypeMismatch
-exception InvalidReturn
-exception InavalidBranches
-exception InvalidCondition
-exception NoMatchFound
-exception ResTypeMismatch
-exception CondTypeMismatch
-exception InvalidArg
-exception InvalidFunc
-exception OutOfRange
-exception NotList
+exception NotEqTypes
+exception WrongRetType
+exception DiffBrTypes
+exception IfCondNotBool
+exception NoMatchResults
+exception MatchResTypeDiff
+exception MatchCondTypesDiff
+exception CallTypeMisM
+exception NotFunc
+exception ListOutOfRange
+exception OpNonList
 
 fun teval (e) (env:plcType env) = 
   case e of 
@@ -35,14 +35,14 @@ fun teval (e) (env:plcType env) =
     end
   | (Item (index, e)) =>
     let
-      fun get (i, []) = raise OutOfRange
-        | get (i, (x::[])) = if i = 1 then x else raise OutOfRange
+      fun get (i, []) = raise ListOutOfRange
+        | get (i, (x::[])) = if i = 1 then x else raise ListOutOfRange
         | get (i, (x::xs)) = if i = 1 then x else get (i - 1, xs)
       val vType = teval e env
     in
       case vType of
           ListT l => get(index, l)
-        | _ => raise NotList
+        | _ => raise OpNonList
     end
   | (Prim1(oper, e)) =>
     let
@@ -79,11 +79,11 @@ fun teval (e) (env:plcType env) =
         | "::" => let in
             case (e1_type, e2_type) of
                 (IntT, ListT []) => SeqT IntT
-              | (IntT, SeqT t2) => if t2 = IntT then SeqT t2 else raise TypeMismatch
+              | (IntT, SeqT t2) => if t2 = IntT then SeqT t2 else raise NotEqTypes
               | (BoolT, ListT []) => SeqT BoolT
-              | (BoolT, SeqT t2) => if t2 = BoolT then SeqT t2 else raise TypeMismatch
+              | (BoolT, SeqT t2) => if t2 = BoolT then SeqT t2 else raise NotEqTypes
               | (ListT t, ListT []) => SeqT (ListT t)
-              | (ListT t, SeqT t2) => if t2 = ListT t then SeqT t2 else raise TypeMismatch
+              | (ListT t, SeqT t2) => if t2 = ListT t then SeqT t2 else raise NotEqTypes
               | _ => raise UnknownType
           end
         | "+" => if e1_type = IntT andalso e2_type = IntT then IntT else raise UnknownType
@@ -92,8 +92,8 @@ fun teval (e) (env:plcType env) =
         | "/" => if e1_type = IntT andalso e2_type = IntT then IntT else raise UnknownType
         | "<" => if e1_type = IntT andalso e2_type = IntT then BoolT else raise UnknownType
         | "<=" => if e1_type = IntT andalso e2_type = IntT then BoolT else raise UnknownType
-        | "=" => if e1_type = e2_type andalso (e1_type = IntT orelse e1_type = BoolT) then BoolT else raise TypeMismatch
-        | "!=" => if e1_type = e2_type andalso (e1_type = IntT orelse e1_type = BoolT) then BoolT else raise TypeMismatch
+        | "=" => if e1_type = e2_type andalso (e1_type = IntT orelse e1_type = BoolT) then BoolT else raise NotEqTypes
+        | "!=" => if e1_type = e2_type andalso (e1_type = IntT orelse e1_type = BoolT) then BoolT else raise NotEqTypes
         | ";" => e2_type
         | _ => raise UnknownType
     end
@@ -104,8 +104,8 @@ fun teval (e) (env:plcType env) =
       val e3_type = teval e3 env
     in
       case e1_type of
-          BoolT => if e2_type = e3_type then e2_type else raise InavalidBranches
-        | _ => raise InvalidCondition
+          BoolT => if e2_type = e3_type then e2_type else raise DiffBrTypes
+        | _ => raise IfCondNotBool
     end
   | (Let(var, e1, e2)) =>
     let
@@ -128,7 +128,7 @@ fun teval (e) (env:plcType env) =
       val e1_type = teval e1 (rec_env :: arg_env :: env)
       val e2_type = teval e2 (rec_env :: env)
     in
-      if e1_type = funTyp then e2_type else raise InvalidReturn
+      if e1_type = funTyp then e2_type else raise WrongRetType
     end
   | (Call(e2, e1)) =>
     let
@@ -137,8 +137,8 @@ fun teval (e) (env:plcType env) =
     in
       case e2_type of
           FunT (arg_typee, resultType) => 
-            if e1_type = arg_typee then resultType else raise InvalidArg
-        | _ => raise InvalidFunc
+            if e1_type = arg_typee then resultType else raise CallTypeMisM
+        | _ => raise NotFunc
     end
   | (Match(e1, l)) =>
     let
@@ -154,9 +154,9 @@ fun teval (e) (env:plcType env) =
                           if (teval e3 env) = res_type then
                             if cond = (teval e2 env) then 
                               teval e3 env 
-                            else raise CondTypeMismatch
-                          else raise ResTypeMismatch
-                      | (NONE, e3) => if (teval e3 env) = res_type then res_type else raise ResTypeMismatch
+                            else raise MatchCondTypesDiff
+                          else raise MatchResTypeDiff
+                      | (NONE, e3) => if (teval e3 env) = res_type then res_type else raise MatchResTypeDiff
                   end
               | x::xs => let in
                     case x of
@@ -164,11 +164,11 @@ fun teval (e) (env:plcType env) =
                           if (teval e3 env) = res_type then
                             if cond = (teval e2 env) then
                               match (Match(e1, xs)) env 
-                            else raise CondTypeMismatch
-                          else raise ResTypeMismatch
+                            else raise MatchCondTypesDiff
+                          else raise MatchResTypeDiff
                       | _ => raise UnknownType
                   end
-              | _ => raise NoMatchFound
+              | _ => raise NoMatchResults
           end
         | match _ _ = raise UnknownType
     in

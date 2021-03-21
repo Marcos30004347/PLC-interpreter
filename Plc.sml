@@ -26,17 +26,17 @@ fun run exp =
       teval exp []
     end
     handle UnkownSymbol => let val p = print ("ERR: symbol not found.") in raise UnkownSymbol end
-          | InvalidCondition => let val p =  print ("ERR: 'If' must receive a boolean expression.") in raise InvalidCondition end
-          | InavalidBranches => let val p =  print ("ERR: 'If' branches must have equal types.") in raise InavalidBranches end
-          | TypeMismatch => let val p =  print ("ERR: comparison must have equal types") in raise TypeMismatch end
-          | NoMatchFound => let val p =  print ("ERR: no match results.") in raise NoMatchFound end
-          | CondTypeMismatch => let val p =  print ("ERR: match condition must have equal types.") in raise CondTypeMismatch end
-          | ResTypeMismatch => let val p =  print ("ERR: match response must have equal types.") in raise ResTypeMismatch end
-          | InvalidReturn => let val p =  print ("ERR: wrong return type for function.") in raise InvalidReturn end
-          | InvalidArg => let val p =  print ("ERR: argument don't match function argument type.") in raise InvalidArg end
-          | InvalidFunc => let val p =  print ("ERR: not a function.") in raise InvalidFunc end
-          | NotList => let val p =  print ("ERR: not a list.") in raise NotList end
-          | OutOfRange => let val p =  print ("ERR: list out of range.") in raise OutOfRange end
+          | IfCondNotBool => let val p =  print ("ERR: 'If' must receive a boolean expression.") in raise IfCondNotBool end
+          | DiffBrTypes => let val p =  print ("ERR: 'If' branches must have equal types.") in raise DiffBrTypes end
+          | NotEqTypes => let val p =  print ("ERR: comparison must have equal types") in raise NotEqTypes end
+          | NoMatchResults => let val p =  print ("ERR: no match results.") in raise NoMatchResults end
+          | MatchCondTypesDiff => let val p =  print ("ERR: match condition must have equal types.") in raise MatchCondTypesDiff end
+          | MatchResTypeDiff => let val p =  print ("ERR: match response must have equal types.") in raise MatchResTypeDiff end
+          | WrongRetType => let val p =  print ("ERR: wrong return type for function.") in raise WrongRetType end
+          | CallTypeMisM => let val p =  print ("ERR: argument don't match function argument type.") in raise CallTypeMisM end
+          | NotFunc => let val p =  print ("ERR: not a function.") in raise NotFunc end
+          | OpNonList => let val p =  print ("ERR: not a list.") in raise OpNonList end
+          | ListOutOfRange => let val p =  print ("ERR: list out of range.") in raise ListOutOfRange end
           | EmptySeq => let val p =  print ("ERR: empty sequence") in raise EmptySeq end
           | UnknownType => let val p = print ("ERR: internal error.") in raise UnknownType end
           | _ => let val p = print ("ERR: internal error.") in raise UnknownType end
