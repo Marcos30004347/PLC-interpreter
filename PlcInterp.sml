@@ -1,9 +1,9 @@
 (* PlcInterp *)
 
-exception Impossible
-exception HDEmptySeq
-exception TLEmptySeq
-exception ValueNotFoundInMatch
+exception UnknownImp
+exception InvalidHDOp
+exception InvalidTLOp
+exception NotFound
 exception NotAFunc
 
 fun eval (expression) (env:plcVal env) = 
@@ -11,7 +11,7 @@ fun eval (expression) (env:plcVal env) =
     (ConI i) => IntV i
   | (ConB b) => BoolV b
   | (ESeq e) => SeqV []
-  | (Var v) => let in lookup env v handle SymbolNotFound => raise SymbolNotFound end
+  | (Var v) => let in lookup env v handle UnkownSymbol => raise UnkownSymbol end
   | (Prim2 (opr, e1, e2)) =>
     if opr = ";" then
       let
@@ -34,31 +34,31 @@ fun eval (expression) (env:plcVal env) =
                 | "<=" => BoolV (i1 <= i2)
                 | "=" => BoolV (i1 = i2)
                 | "!=" => BoolV (i1 <> i2)
-                | _ => raise Impossible
+                | _ => raise UnknownImp
             end
           | (BoolV b1, BoolV b2) => 
             let in
               case opr of "&&" => BoolV (b1 andalso b2)
                 | "=" => BoolV (b1 = b2)
                 | "!=" => BoolV (b1 <> b2)
-                | _ => raise Impossible
+                | _ => raise UnknownImp
             end
           | (IntV i1, SeqV s2) => 
             let in
               case opr of "::" => SeqV (IntV i1 :: s2)
-                | _ => raise Impossible
+                | _ => raise UnknownImp
             end
           | (BoolV b1, SeqV s2) => 
             let in
               case opr of "::" => SeqV (BoolV b1 :: s2)
-                | _ => raise Impossible
+                | _ => raise UnknownImp
             end
           | (ListV l1, SeqV s2) => 
             let in
               case opr of "::" => SeqV (ListV l1 :: s2)
-                | _ => raise Impossible
+                | _ => raise UnknownImp
             end
-          | _ => raise Impossible
+          | _ => raise UnknownImp
       end
   | (Prim1 (opr, exp)) =>
     let
@@ -75,7 +75,7 @@ fun eval (expression) (env:plcVal env) =
                   ListV []
                 end
               |  "-" => IntV (~ i)
-              | _ => raise Impossible
+              | _ => raise UnknownImp
           end
         | BoolV b =>
           let in
@@ -87,7 +87,7 @@ fun eval (expression) (env:plcVal env) =
                   ListV []
                 end
               | "!" => BoolV (not b)
-              | _ => raise Impossible
+              | _ => raise UnknownImp
           end
         | SeqV s =>
           let in
@@ -97,15 +97,15 @@ fun eval (expression) (env:plcVal env) =
                 in
                   ListV []
                 end
-              | "hd" => let in let in hd s end handle Empty => raise HDEmptySeq end
-              | "tl" => let in let in SeqV (tl s) end handle Empty => raise TLEmptySeq end
+              | "hd" => let in let in hd s end handle Empty => raise InvalidHDOp end
+              | "tl" => let in let in SeqV (tl s) end handle Empty => raise InvalidTLOp end
               | "ise" =>
                 let in
                   case s of
                       [] => BoolV true
                     | _ => BoolV false
                 end
-              | _ => raise Impossible
+              | _ => raise UnknownImp
           end
         | ListV l =>
           let in
@@ -115,15 +115,15 @@ fun eval (expression) (env:plcVal env) =
                 in
                   ListV []
                 end
-              | _ => raise Impossible
+              | _ => raise UnknownImp
           end
-        | _ => raise Impossible
+        | _ => raise UnknownImp
     end
   | (If (e1, e2, exp3)) => 
     let in
       case eval e1 env of BoolV true => eval e2 env
         | BoolV false => eval exp3 env
-        | _ => raise Impossible
+        | _ => raise UnknownImp
     end
   | (Match (e1, matchList)) =>
     let 
@@ -131,34 +131,34 @@ fun eval (expression) (env:plcVal env) =
       (* Try matches will return the "cond -> expr" for which cond matches e1 *)
       fun tryMatches (matchVar, x::[]) env =
           let in
-            case x of (SOME e2, exp3) => if matchVar = eval e2 env then exp3 else raise ValueNotFoundInMatch
+            case x of (SOME e2, exp3) => if matchVar = eval e2 env then exp3 else raise NotFound
               | (NONE, exp3) => exp3
           end
         | tryMatches (matchVar, x::xs) env =  let in
             case x of (SOME e2, exp3) => if matchVar = eval e2 env then exp3 else tryMatches (matchVar, xs) env
-              | (NONE, exp3) => raise Impossible
+              | (NONE, exp3) => raise UnknownImp
           end
-        | tryMatches (matchVar, _ ) env = raise Impossible
+        | tryMatches (matchVar, _ ) env = raise UnknownImp
     in
       eval (tryMatches (evalMatchVar, matchList) env) env
     end
   | (Item (index, exp)) =>
     let
-      fun getElementI (index, []) = raise Impossible
-        | getElementI (index, (x::[])) = if index = 1 then x else raise Impossible
+      fun getElementI (index, []) = raise UnknownImp
+        | getElementI (index, (x::[])) = if index = 1 then x else raise UnknownImp
         | getElementI (index, (x::xs)) = if index = 1 then x else getElementI (index - 1, xs)
       val value = eval exp env
     in
       case value of ListV l => getElementI (index, l)
         | SeqV s => getElementI (index, s)
-        | _ => raise Impossible
+        | _ => raise UnknownImp
     end
   | (List []) => ListV []
   | (List l) =>
     let
       fun unroll (x::[]) = eval x env :: []
         | unroll (x::xs) = eval x env :: unroll xs
-        | unroll _ = raise Impossible;
+        | unroll _ = raise UnknownImp;
     in
       ListV (unroll l)
     end
