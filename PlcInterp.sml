@@ -127,8 +127,7 @@ fun eval (expression) (env:plcVal env) =
     end
   | (Match (e1, matchList)) =>
     let 
-      val evalMatchVar = eval e1 env 
-      (* Try matches will return the "cond -> expr" for which cond matches e1 *)
+      val evalMatchVar = eval e1 env
       fun tryMatches (matchVar, x::[]) env =
           let in
             case x of (SOME e2, exp3) => if matchVar = eval e2 env then exp3 else raise NotFound
