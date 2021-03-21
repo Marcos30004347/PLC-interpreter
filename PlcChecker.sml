@@ -140,14 +140,14 @@ fun teval (e) (env:plcType env) =
             if e1_type = arg_typee then resultType else raise CallTypeMisM
         | _ => raise NotFunc
     end
-  | (Match(e1, matchList)) =>
+  | (Match(e1, l)) =>
     let
       val initialCond = teval e1 env
-      val firstRes = (#2 (hd matchList))
+      val firstRes = (#2 (hd l))
       val firstResType = teval firstRes env
-      fun searchMatch (Match(e1, matchList)) (env:plcType env) =
+      fun searchMatch (Match(e1, l)) (env:plcType env) =
           let in
-            case matchList of
+            case l of
                 x::[] => let in
                     case x of
                         (SOME e2, e3) => 
@@ -172,5 +172,5 @@ fun teval (e) (env:plcType env) =
           end
         | searchMatch _ _ = raise UnknownType
     in
-      searchMatch (Match(e1, matchList)) env
+      searchMatch (Match(e1, l)) env
     end
